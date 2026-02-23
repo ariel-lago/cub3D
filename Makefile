@@ -37,7 +37,7 @@ $(LIBFT):
 # Link the program
 $(NAME): $(LIBFT) $(OBJS)
 	@make -C $(MLX_DIR)
-	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
 
 # Clean object files
 clean:
