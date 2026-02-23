@@ -6,17 +6,50 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/23 18:00:09 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:24:38 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*get_color(char map_name, char c)
+//looks for the identifier and returns the path/color values attached
+//note: should i add an is space function or do we accept the subjet means a normal ' ' space?
+static char	*get_info(char map_name, char *id)
 {
-	int	fd;
+	int		fd;
+	int		i;
+	char	line;
 
 	fd = open(file);
+	if (fd < 0)
+		return (NULL);
+	line = get_next_line(fd);
+	while (line)
+	{
+		i = 0;
+		while (line[i] == ' ')
+			i++;
+		if (ft_strncmp(line, id, 2) == SUCCESS)
+		{
+			while (line[i] == ' ')
+				i++;
+			return (line[i]);
+		}
+		line = get_next_line(fd);
+	}
+	write (1, "Error\nMissing identifier\n", 25);
+	return (NULL);
+}
+
+static char	**get_wall_paths(char *map_name)
+{
+	char	**wall_paths;
+
+	wall_paths[0] = get_info(map_name, "NO");
+	wall_paths[1] = get_info(map_name, "SO");
+	wall_paths[2] = get_info(map_name, "WE");
+	wall_paths[3] = get_info(map_name, "EA");
+	return (wall_paths);
 }
 
 int	parse(t_map *map, char *map_name)
@@ -30,7 +63,7 @@ int	parse(t_map *map, char *map_name)
 	map.player_y = get_y_pos(map_name);
 	map.player_dir = get_player_dir(map_name);
 	map.walls = get_wall_paths(map_name);
-	map.floor_color = get_color(map_name, f);
-	map.ceiling_color = get_color(map_name, c);
+	map.floor_color = get_info(map_name, "F ");
+	map.ceiling_color = get_info(map_name, "C ");
 	return (0);
 }

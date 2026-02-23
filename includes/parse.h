@@ -6,7 +6,7 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:32:23 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/23 17:34:14 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:24:56 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "cub3d.h"
 
-int	parse(t_map	*map, char *filename);
+int	parse(t_map	*map, char *map_name);
 
 #endif
