@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aabelkis <aabelkis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/10 17:38:17 by rbestman          #+#    #+#             */
+/*   Updated: 2025/09/25 13:16:40 by aabelkis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_H
-# define GAME_H
+#include "libft.h"
 
-# include "cub3d.h"
-
-typedef struct s_game
+char	*ft_strdup(const char *src)
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
+	char	*dup;
+	int		i;
 
-#endif
+	dup = malloc(ft_strlen(src) + 1);
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		dup[i] = src[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}

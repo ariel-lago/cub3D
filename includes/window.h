@@ -6,12 +6,12 @@
 /*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:24:08 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 17:42:25 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:23:04 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef
-# define
+#ifndef WINDOW_H
+# define WINDOW_H
 
 #include "cub3d.h"
 
@@ -27,7 +27,7 @@ typedef	struct	s_win
 	char	*title;
 }	t_win;
 
-int	init_window(t_win *window);
+void	init_window(t_win *window);
 int	close_window(t_win *window);
 
 #endif

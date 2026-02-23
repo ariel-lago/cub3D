@@ -1,21 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:50:25 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:24:23 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/13 10:18:13 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 15:07:54 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	key_hook(int keycode, t_game *game)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	if (keycode == KEY_ESC)
-		close_window(&game->window);
-	return (0);
-}
+	size_t				l;
+	unsigned char		*ptr1;
+	const unsigned char	*ptr2;
 
+	ptr1 = dst;
+	ptr2 = src;
+	if (!dst && !src)
+		return (NULL);
+	if (ptr2 < ptr1)
+	{
+		while (n-- > 0)
+		{
+			ptr1[n] = ptr2[n];
+		}
+	}
+	else
+	{
+		l = 0;
+		while (l < n)
+		{
+			ptr1[l] = ptr2[l];
+			l++;
+		}
+	}
+	return (dst);
+}

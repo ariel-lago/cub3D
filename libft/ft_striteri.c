@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/21 17:19:41 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 15:20:55 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_H
-# define GAME_H
+#include "libft.h"
 
-# include "cub3d.h"
-
-typedef struct s_game
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
+	size_t	i;
 
-#endif
+	if (!s || !f)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		f(i, &s[i]);
+		i++;
+	}
+}

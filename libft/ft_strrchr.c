@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/14 11:03:00 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 15:40:18 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_H
-# define GAME_H
+#include "libft.h"
 
-# include "cub3d.h"
-
-typedef struct s_game
+char	*ft_strrchr(const char *s, int c)
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
+	const char	*p;
 
-#endif
+	p = NULL;
+	while (*s)
+	{
+		if (*s == (char)c)
+			p = s;
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return ((char *)p);
+}

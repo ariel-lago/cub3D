@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/13 13:18:16 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 11:42:49 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_H
-# define GAME_H
+#include "libft.h"
 
-# include "cub3d.h"
-
-typedef struct s_game
+void	ft_bzero(void *s, size_t n)
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
+	char	*ptr;
 
-#endif
+	ptr = (char *)s;
+	while (n--)
+	{
+		*ptr = 0;
+		ptr++;
+	}
+}

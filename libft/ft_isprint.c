@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/09/06 07:21:15 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/11 16:48:15 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef GAME_H
-# define GAME_H
-
-# include "cub3d.h"
-
-typedef struct s_game
+int	ft_isprint(int c)
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
-
-#endif
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
+}

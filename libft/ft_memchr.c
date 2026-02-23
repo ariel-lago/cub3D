@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:50:25 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:24:23 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/13 16:26:10 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 14:05:03 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	key_hook(int keycode, t_game *game)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	if (keycode == KEY_ESC)
-		close_window(&game->window);
-	return (0);
-}
+	const unsigned char	*t;
+	size_t				i;
 
+	t = (unsigned char *)s;
+	i = 0;
+	while (i < n)
+	{
+		if (t[i] == (unsigned char)c)
+		{
+			return ((void *)(t + i));
+		}
+		i++;
+	}
+	return (NULL);
+}

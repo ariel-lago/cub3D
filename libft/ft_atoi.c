@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:50:25 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:24:23 by rbestman         ###   ########.fr       */
+/*   Created: 2024/09/11 18:05:16 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/28 16:12:51 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "cub3d.h"
-
-int	key_hook(int keycode, t_game *game)
+int	ft_atoi(const char *str)
 {
-	if (keycode == KEY_ESC)
-		close_window(&game->window);
-	return (0);
-}
+	int	i;
+	int	result;
+	int	sign;
 
+	sign = 1;
+	result = 0;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
+	{
+		i++;
+	}
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result * sign);
+}

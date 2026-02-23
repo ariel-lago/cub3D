@@ -19,6 +19,8 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+# include "cub3d.h"
+
 typedef struct s_map
 {
 	int		map_width;

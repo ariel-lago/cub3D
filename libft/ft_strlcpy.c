@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/13 13:27:02 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 12:16:18 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_H
-# define GAME_H
+#include "libft.h"
 
-# include "cub3d.h"
-
-typedef struct s_game
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
+	size_t	l;
 
-#endif
+	l = 0;
+	if (size > 0)
+	{
+		while ((l < size - 1) && src[l])
+		{
+			dst[l] = src[l];
+			l++;
+		}
+		dst[l] = 0;
+	}
+	return (ft_strlen((char *)src));
+}

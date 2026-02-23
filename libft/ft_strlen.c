@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/09/11 13:21:26 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 12:32:03 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef GAME_H
-# define GAME_H
-
-# include "cub3d.h"
-
-typedef struct s_game
+size_t	ft_strlen(const char *str)
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
+	size_t	len;
 
-#endif
+	len = 0;
+	while (str[len])
+		len ++;
+	return (len);
+}

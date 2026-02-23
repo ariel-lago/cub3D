@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:18:17 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/13 10:18:13 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 13:30:43 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_H
-# define GAME_H
+#include "libft.h"
 
-# include "cub3d.h"
-
-typedef struct s_game
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	t_win	window;
-	t_map	map;
-}	t_game;
+	unsigned char		*ptr1;
+	const unsigned char	*ptr2;
 
-#endif
+	if (!src && !dst)
+		return (NULL);
+	ptr1 = dst;
+	ptr2 = src;
+	while (n--)
+		*ptr1++ = *ptr2++;
+	return (dst);
+}

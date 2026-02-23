@@ -6,7 +6,7 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/23 19:24:38 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:33:54 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,3 +67,12 @@ int	parse(t_map *map, char *map_name)
 	map.ceiling_color = get_info(map_name, "C ");
 	return (0);
 }
+
+/*
+int	parse(t_map *map, char *map_name)
+{
+	(void)map_name;
+	(void)map;
+
+	return (0);
+}*/

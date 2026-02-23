@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbestman <rbestman@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:50:25 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:24:23 by rbestman         ###   ########.fr       */
+/*   Created: 2024/11/13 15:29:35 by rbestman          #+#    #+#             */
+/*   Updated: 2024/11/25 12:18:00 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	key_hook(int keycode, t_game *game)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	if (keycode == KEY_ESC)
-		close_window(&game->window);
-	return (0);
-}
+	size_t	dlen;
+	size_t	slen;
+	size_t	l;
 
+	dlen = ft_strlen(dst);
+	slen = ft_strlen((char *)src);
+	if (size <= dlen)
+		return (size + slen);
+	l = 0;
+	while (src[l] && (dlen + l < size - 1))
+	{
+		dst[dlen + l] = src[l];
+		l++;
+	}
+	dst[dlen + l] = 0;
+	return (dlen + slen);
+}
