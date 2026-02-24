@@ -14,7 +14,7 @@
 
 //looks for the identifier and returns the path/color values attached
 //note: should i add an is space function or do we accept the subjet means a normal ' ' space?
-static char	*get_info(char *map_name, char *id)
+/*static char	*get_info(char *map_name, char *id)
 {
 	int		fd;
 	int		i;
@@ -64,13 +64,12 @@ int	parse(t_map *map, char *map_name)
 	map->floor_color = get_info(map_name, "F ");
 	map->ceiling_color = get_info(map_name, "C ");
 	return (0);
-}
+} */
 
-/*
 int	parse(t_map *map, char *map_name)
 {
 	(void)map_name;
 	(void)map;
 
 	return (0);
-}*/
+}
