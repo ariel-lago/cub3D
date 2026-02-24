@@ -30,12 +30,14 @@ static char	*get_info(char *map_name, char *id)
 		i = 0;
 		while (line[i] == ' ')
 			i++;
-		if (ft_strncmp(&line[i], id, 2) == SUCCESS)
+		if (ft_strncmp(&line[i], id, ft_strlen(id)) == SUCCESS)
 		{
-			i +=  2;
+			i += ft_strlen(id);
 			while (line[i] == ' ')
 				i++;
 			ret = ft_strdup(&line[i]);
+			if (ret && (ret[ft_strlen(ret) - 1] == '\n'))
+				ret[ft_strlen(ret) - 1] = '\0';
 			free(line);
 			close(fd);
 			return (ret);
@@ -50,9 +52,13 @@ static char	*get_info(char *map_name, char *id)
 static int	get_wall_paths(char *map_name, char *wall_paths[])
 {
 	wall_paths[0] = get_info(map_name, "NO");
+	printf("NO: %s\n", wall_paths[0]);
 	wall_paths[1] = get_info(map_name, "SO");
+	printf("SO: %s\n", wall_paths[1]);
 	wall_paths[2] = get_info(map_name, "WE");
+	printf("WE: %s\n", wall_paths[2]);
 	wall_paths[3] = get_info(map_name, "EA");
+	printf("EA: %s\n", wall_paths[3]);
 	if (!wall_paths[0] || !wall_paths[1] || !wall_paths[2] || !wall_paths[3])
 		return (FAILURE);
 	return (SUCCESS);
@@ -68,8 +74,10 @@ int	parse(t_map *map, char *map_name)
 //	map.player_dir = get_player_dir(map_name);
 	if (get_wall_paths(map_name, map->walls) == FAILURE)
 		return (error("Error"), FAILURE);
-	map->floor_color = get_info(map_name, "F ");
-	map->ceiling_color = get_info(map_name, "C ");
+	map->floor_color = get_info(map_name, "F");
+	printf("floor color: %s\n", map->floor_color);
+	map->ceiling_color = get_info(map_name, "C");
+	printf("ceiling color: %s\n", map->ceiling_color);
 	if (!map->floor_color || !map->ceiling_color)
 		return (FAILURE);
 	if (get_map_size(map_name, &map->map_height, &map->map_width) == FAILURE)
