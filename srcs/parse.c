@@ -29,7 +29,7 @@ static char	*get_info(char *map_name, char *id)
 		i = 0;
 		while (line[i] == ' ')
 			i++;
-		if (ft_strncmp(line, id, 2) == SUCCESS)
+		if (ft_strncmp(&line[i], id, 2) == SUCCESS)
 		{
 			while (line[i] == ' ')
 				i++;
