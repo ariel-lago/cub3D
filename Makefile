@@ -18,7 +18,9 @@ SRCS = srcs/main.c \
        srcs/window.c \
        srcs/hooks.c \
        srcs/parse.c \
-       srcs/utils.c
+       srcs/utils.c \
+	   srcs/render.c \
+	   srcs/map.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)

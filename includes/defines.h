@@ -23,6 +23,7 @@
 
 typedef struct s_map
 {
+	char	**map;
 	int		map_width;
 	int		map_height;
 	int		player_x;

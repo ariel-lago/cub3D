@@ -23,13 +23,11 @@
 # include "mlx.h"
 # include "libft.h"
 # include "defines.h"
-# include "parse.h"
 # include "window.h"
-# include "utils.h"
 # include "game.h"
+# include "parse.h"
+# include "utils.h"
 
-# define SUCCESS 0
-# define FAILURE 1
 
 # define EVENT_CLOSE 17
 # define KEY_ESC 65307
