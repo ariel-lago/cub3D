@@ -17,9 +17,9 @@ int	main(int argc, char *argv[])
 	t_game	game;
 
 	if (argc != 2)
-		return (error ("Error\nTry adding one map"), 1);
+		return (error ("Try adding one map", 0), 1);
 	if (parse(&game.map, argv[1]) == FAILURE)
-		return (error("Error\nMap parsing failed"), 1);
+		return (error("Map parsing failed", 0), 1);
 	init_window(&game.window);
 	render(&game);
 	mlx_hook(game.window.win, EVENT_KEY_PRESS, 1L<<0, key_hook, &game);

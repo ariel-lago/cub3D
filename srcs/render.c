@@ -13,10 +13,10 @@
 #include "cub3d.h"
 
 #define SIZE 	8
-#define WALL	0x444444
-#define FLOOR	0xCCCCCC
-#define PLAYER	0xFF444
-#define EMPTY	0x111111
+#define WALL	0x9999FF
+#define FLOOR	0xFF99FF
+#define PLAYER	0xFF6666
+#define EMPTY	0x66F99F
 
 void create_canvas(t_game *game)
 {

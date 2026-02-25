@@ -43,7 +43,7 @@ int	get_map_size(char *map_name, int *height, int *width)
 
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		return (FAILURE);
+		return (error("Open() failed", 1), FAILURE);
 	line = get_next_line(fd);
 	while (line && !is_map(line))
 	{
@@ -77,10 +77,10 @@ int	load_map(char *map_name, t_map *map)
 
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		return (FAILURE);
+		return (error("Open() failed", 1), FAILURE);
 	map->map = ft_calloc(map->map_height + 1, sizeof(char *));
 	if (!map->map)
-		return (close(fd), FAILURE);
+		return (close(fd), error("Memory allocation failed", 1), FAILURE);
 	line = get_next_line(fd);
 	while (line && !is_map(line))
 	{

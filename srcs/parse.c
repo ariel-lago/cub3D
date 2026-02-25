@@ -32,7 +32,7 @@ static char	*get_info(char *line, int *identifiers)
 		*identifiers = *identifiers + 1;
 		return (ret);
 	}
-	return (NULL);
+	return (error("Identifier is missing information", 0), NULL);
 }
 
 /**
@@ -71,6 +71,7 @@ static int parse_rgb(char *rgb_str)
     
     return (color);
 }
+
 /*
 Reads the file line by line and searches for identifiers in each line. 
 If it finds aan identifier it sends it to get info so assign its value to the struct
@@ -102,7 +103,7 @@ static int	find_identifiers(int fd, t_map *map)
 	}
 	free(line);
 	if (identifiers != 6)
-		return (error("Error\nMissing identifier"), FAILURE);
+		return (error("Missing identifier", 0), FAILURE);
 	return (SUCCESS);
 }
 
@@ -147,16 +148,16 @@ int	parse(t_map *map, char *map_name)
 
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		return (FAILURE);
+		return (error("Open() failed", 1), FAILURE);
 	ft_memset(map, 0, sizeof (t_map));
 	if (find_identifiers(fd, map) == FAILURE)
 		return (close(fd), FAILURE);
 	if (get_map_size(map_name, &map->map_height, &map->map_width) == FAILURE)
 		return (close(fd), FAILURE);
 	if (load_map(map_name, map) == FAILURE)
-		return (close(fd), error("Error\nCould not load map"), FAILURE);
+		return (close(fd), FAILURE);
 	if (get_player_start(map) == FAILURE)
-		return (error("Player not found"), FAILURE);
+		return (error("Player not found", 0), FAILURE);
 	printf("player pos_x: %d\n", map->player_x);
 	printf("player pos_y:%d\n", map->player_y);
 	printf("player start direction: %c\n", map->player_dir);

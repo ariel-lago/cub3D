@@ -57,14 +57,18 @@ void	init_window(t_win *window)
 
 	window->mlx = mlx_init();
 	if (!window->mlx)
-		error("Error initializing MinilibX");
-
+	{
+    	error("Error initializing MinilibX", 1);
+        return ;
+    }
 	window->win = mlx_new_window(window->mlx,
 					window->width,
 					window->height,
 					window->title);
 	if (!window->win)
-		error("Error creating Window");
+	{
+        error("Error creating Window", 1);
+    }
 }
 
 int	close_window(t_win *window)
