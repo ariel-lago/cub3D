@@ -24,9 +24,9 @@
 # include "mlx.h"
 # include "libft.h"
 # include "defines.h"
-# include "parse.h"
 # include "window.h"
-# include "utils.h"
 # include "game.h"
+# include "parse.h"
+# include "utils.h"
 
 #endif

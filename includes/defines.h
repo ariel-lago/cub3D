@@ -40,14 +40,15 @@
 
 typedef struct s_map
 {
+	char	**map;
 	int		map_width;
 	int		map_height;
 	int		player_x;
 	int		player_y;
 	int		player_dir;
 	char	*walls[4];
-	char	*floor_color;
-	char	*ceiling_color;
+	int		floor_color;
+	int		ceiling_color;
 }	t_map;
 
 #endif

@@ -39,8 +39,10 @@ typedef struct s_game
 
 int     key_hook(int keycode, t_game *game);
 int     key_release(int keycode, t_game *game);
-void draw_window(t_game *game);
-void put_pixel(t_img *img, int x, int y, int color);
+void	render(t_game *game);
+void    create_canvas(t_game *game);
+void    draw_window(t_game *game);
+void    put_pixel(t_img *img, int x, int y, int color);
 
 //int	game_loop(t_game *game);
 

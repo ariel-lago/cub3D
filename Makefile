@@ -3,7 +3,7 @@ NAME = cub3d
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft -I./minilibx-linux
+CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft -I./minilibx-linux -g
 
 # LIBFT
 LIBFT_DIR = ./libft
@@ -18,7 +18,9 @@ SRCS = srcs/main.c \
        srcs/window.c \
        srcs/hooks.c \
        srcs/parse.c \
-       srcs/utils.c
+       srcs/utils.c \
+	   srcs/map.c \
+	   srcs/render.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -48,7 +50,7 @@ clean:
 # Clean everything
 fclean: clean
 	rm -f $(NAME)
-	@make -C $(MLX_DIR) fclean
+	@make -C $(MLX_DIR) clean
 	@make -C $(LIBFT_DIR) fclean
 
 # Recompile
