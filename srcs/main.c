@@ -6,7 +6,7 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:22:57 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/24 17:29:48 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/02/25 18:51:58 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (error ("Try adding one map", 0), 1);
+	if (is_valid_file(argv[1]) == FALSE)
+		return (1);
 	if (parse(&game.map, argv[1]) == FAILURE)
 		return (error("Map parsing failed", 0), 1);
 	init_window(&game.window);
