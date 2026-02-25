@@ -18,15 +18,6 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
-typedef	struct	s_win
-{
-	void	*mlx;
-	void	*win;
-	int	width;
-	int	height;
-	char	*title;
-}	t_win;
-
 //void put_pixel(t_img *img, int x, int y, int color);
 //void draw_window(t_game *game);
 void	init_window(t_win *window);

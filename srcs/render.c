@@ -71,15 +71,18 @@ void	render_2d_map(t_game *game)
 		x = 0;
 		while (x < game->map.map_width)
 		{
-			c = game->map.map[y][x];
-			if (c == '1')
-				color = WALL;
-			else if (c == '0')
-				color = FLOOR;
-			else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			if (x == game->map.player_x && y == game->map.player_y)
 				color = PLAYER;
 			else
-				color = EMPTY;
+			{
+				c = game->map.map[y][x];
+				if (c == '1')
+					color = WALL;
+				else if (c == '0')
+					color = FLOOR;
+				else
+					color = EMPTY;
+			}
 			pixel(game, x, y, color);
 			x++;
 		}

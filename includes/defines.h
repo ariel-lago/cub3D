@@ -38,6 +38,41 @@
 
 # include "cub3d.h"
 
+typedef struct s_key
+{
+	bool	pressed[256];	
+}	t_key;
+
+typedef struct  s_img
+{
+        void    *img;
+        char    *addr;
+        int     bpp;
+        int     line_len;
+        int     endian;
+}       t_img;
+
+typedef	struct	s_win
+{
+	void	*mlx;
+	void	*win;
+	int	width;
+	int	height;
+	char	*title;
+}	t_win;
+
+typedef	struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+        double  plane_x;
+        double  plane_y;
+	double	move_speed;
+	double  rot_speed;
+}	t_player;
+
 typedef struct s_map
 {
 	char	**map;
@@ -50,5 +85,16 @@ typedef struct s_map
 	int		floor_color;
 	int		ceiling_color;
 }	t_map;
+
+typedef struct s_game
+{
+	t_win	        window;
+	t_map	        map;
+	t_key	        keys;
+	t_img           canvas;
+        t_player        player;
+}	t_game;
+
+
 
 #endif
