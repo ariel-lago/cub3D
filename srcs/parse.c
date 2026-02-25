@@ -36,31 +36,6 @@ static char	*get_info(char *line, int *identifiers)
 }
 
 /**
- * Frees a NULL-terminated array of strings created by ft_split
- * 
- * @param split The array to free
- */
-void ft_free_split(char **split)
-{
-    int i;
-
-    // Check if the array exists
-    if (!split)
-        return;
-    
-    // Free each individual string
-    i = 0;
-    while (split[i])
-    {
-        free(split[i]);  // Free each string
-        i++;
-    }
-    
-    // Free the array itself
-    free(split);
-}
-
-/**
  * Converts a string like "220,100,0" into an integer color 0xDC6400
  * Returns -1 on error
  */
@@ -75,28 +50,23 @@ static int parse_rgb(char *rgb_str)
     if (!rgb_str)
         return (-1);
     
-    // Split the string by commas
     split = ft_split(rgb_str, ',');
     if (!split || !split[0] || !split[1] || !split[2])
     {
         if (split)
-            ft_free_split(split);
+            free_array(split);
         return (-1);
     }
-    
-    // Convert each part to integer
+
     r = ft_atoi(split[0]);
     g = ft_atoi(split[1]);
     b = ft_atoi(split[2]);
-    
-    // Free the split array
-    ft_free_split(split);
-    
-    // Check if values are valid (0-255)
+
+    free_array(split);
+
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
         return (-1);
-    
-    // Combine into a single integer: 0xRRGGBB
+
     color = (r << 16) | (g << 8) | b;
     
     return (color);
@@ -136,6 +106,36 @@ static int	find_identifiers(int fd, t_map *map)
 	return (SUCCESS);
 }
 
+int get_player_start(t_map *map)
+{
+    int     row;
+    int     col;
+    char    c;
+
+    if (!map || !map->map)
+        return (FAILURE);
+    row = 0;
+    while (row < map->map_height)
+    {
+        col = 0;
+        while (col < map->map_width)
+        {
+            c = map->map[row][col];
+            if (c == 'N' || c == 'S' || c =='E' || c == 'W')
+            {
+                map->player_x = col;
+                map->player_y = row;
+                map->player_dir = c;
+                map->map[row][col] = '0';
+                return (SUCCESS);
+            }
+            col++;
+        }
+        row++;
+    }
+    return (FAILURE);
+}
+
 /*
 Opens the map file, does sets memory to 0 for the map struct.
 Looks for identifiers
@@ -149,15 +149,17 @@ int	parse(t_map *map, char *map_name)
 	if (fd < 0)
 		return (FAILURE);
 	ft_memset(map, 0, sizeof (t_map));
-//	map.player_x = get_x_pos(map_name);
-//	map.player_y = get_y_pos(map_name);
-//	map.player_dir = get_player_dir(map_name);
 	if (find_identifiers(fd, map) == FAILURE)
 		return (close(fd), FAILURE);
 	if (get_map_size(map_name, &map->map_height, &map->map_width) == FAILURE)
 		return (close(fd), FAILURE);
 	if (load_map(map_name, map) == FAILURE)
 		return (close(fd), error("Error\nCould not load map"), FAILURE);
+	if (get_player_start(map) == FAILURE)
+		return (error("Player not found"), FAILURE);
+	printf("player pos_x: %d\n", map->player_x);
+	printf("player pos_y:%d\n", map->player_y);
+	printf("player start direction: %c\n", map->player_dir);
 	close(fd);
 	return (SUCCESS);
 }

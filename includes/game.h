@@ -15,28 +15,6 @@
 
 # include "cub3d.h"
 
-typedef struct s_key
-{
-	bool	pressed[256];	
-}	t_key;
-
-typedef struct  s_img
-{
-        void    *img;
-        char    *addr;
-        int     bpp;
-        int     line_len;
-        int     endian;
-}       t_img;
-
-typedef struct s_game
-{
-	t_win	window;
-	t_map	map;
-	t_key	keys;
-	t_img	canvas;
-}	t_game;
-
 int     key_hook(int keycode, t_game *game);
 int     key_release(int keycode, t_game *game);
 void	render(t_game *game);

@@ -17,5 +17,6 @@
 
 
 void	error(char *message);
+void    free_array(char **arr);
 
 #endif

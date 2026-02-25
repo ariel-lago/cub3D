@@ -17,6 +17,9 @@
 
 int	parse(t_map	*map, char *map_name);
 
+//parse_utils.c
+int get_player_start(t_map *map);
+
 //2d render
 void    render_2d_map(t_game *game);
 int     load_map(char *map_name, t_map *map);
