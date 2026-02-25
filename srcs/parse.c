@@ -57,6 +57,72 @@ static int	get_wall_paths(int fd, char *wall_paths[])
 		return (FAILURE);
 	return (SUCCESS);
 }
+/**
+ * Frees a NULL-terminated array of strings created by ft_split
+ * 
+ * @param split The array to free
+ */
+void ft_free_split(char **split)
+{
+    int i;
+
+    // Check if the array exists
+    if (!split)
+        return;
+    
+    // Free each individual string
+    i = 0;
+    while (split[i])
+    {
+        free(split[i]);  // Free each string
+        i++;
+    }
+    
+    // Free the array itself
+    free(split);
+}
+
+/**
+ * Converts a string like "220,100,0" into an integer color 0xDC6400
+ * Returns -1 on error
+ */
+static int parse_rgb(char *rgb_str)
+{
+    char    **split;
+    int     r;
+    int     g;
+    int     b;
+    int     color;
+    
+    if (!rgb_str)
+        return (-1);
+    
+    // Split the string by commas
+    split = ft_split(rgb_str, ',');
+    if (!split || !split[0] || !split[1] || !split[2])
+    {
+        if (split)
+            ft_free_split(split);
+        return (-1);
+    }
+    
+    // Convert each part to integer
+    r = ft_atoi(split[0]);
+    g = ft_atoi(split[1]);
+    b = ft_atoi(split[2]);
+    
+    // Free the split array
+    ft_free_split(split);
+    
+    // Check if values are valid (0-255)
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+        return (-1);
+    
+    // Combine into a single integer: 0xRRGGBB
+    color = (r << 16) | (g << 8) | b;
+    
+    return (color);
+}
 
 int	parse(t_map *map, char *map_name)
 {
@@ -73,10 +139,10 @@ int	parse(t_map *map, char *map_name)
 //	map.player_dir = get_player_dir(map_name);
 	if (get_wall_paths(fd, map->walls) == FAILURE)
 		return (close(fd), error("Error"), FAILURE);
-	map->floor_color = get_info(fd, "F");
-	printf("floor color: %s\n", map->floor_color);
-	map->ceiling_color = get_info(fd, "C");
-	printf("ceiling color: %s\n", map->ceiling_color);
+	map->floor_color = parse_rgb(get_info(fd, "F"));
+	printf("floor color: %d\n", map->floor_color);
+	map->ceiling_color = parse_rgb(get_info(fd, "C"));
+	printf("ceiling color: %d\n", map->ceiling_color);
 	if (!map->floor_color || !map->ceiling_color)
 		return (close(fd), FAILURE);
 	if (get_map_size(map_name, &map->map_height, &map->map_width) == FAILURE)
@@ -86,11 +152,3 @@ int	parse(t_map *map, char *map_name)
 	return (SUCCESS);
 }
 
-/*
-int	parse(t_map *map, char *map_name)
-{
-	(void)map_name;
-	(void)map;
-
-	return (0);
-}*/

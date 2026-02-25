@@ -6,12 +6,41 @@
 /*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:03:36 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 19:23:50 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/02/24 17:34:06 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "game.h"
+
+void put_pixel(t_img *img, int x, int y, int color)
+{
+    char *dst;
+
+    dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+    *(unsigned int*)dst = color;
+}
+
+void    draw_window(t_game *game)
+{
+    int x;
+    int y;
+
+    y = 0;
+    while (y < WIN_HEIGHT)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+        {
+            if (y < WIN_HEIGHT / 2)
+                put_pixel(&game->canvas, x, y, game->map.ceiling_color);
+            else
+                put_pixel(&game->canvas, x, y, game->map.floor_color);
+            x++;
+        }
+        y++;
+    }
+}
 
 static void	create_win(t_win *window)
 {

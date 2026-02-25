@@ -12,16 +12,36 @@
 
 #include "cub3d.h"
 
-#define SIZE 	16
+#define SIZE 	8
 #define WALL	0x444444
 #define FLOOR	0xCCCCCC
 #define PLAYER	0xFF444
 #define EMPTY	0x111111
 
-static void	put_pixel(t_game *game, int col, int row, int color)
+void create_canvas(t_game *game)
+{
+	game->canvas.img = mlx_new_image(game->window.mlx, WIN_WIDTH, WIN_HEIGHT);
+    game->canvas.addr = mlx_get_data_addr(game->canvas.img,
+                                          &game->canvas.bpp,
+                                          &game->canvas.line_len,
+                                          &game->canvas.endian);
+}
+
+void	render(t_game *game)
+{
+	create_canvas(game);
+	draw_window(game);
+	render_2d_map(game);
+	mlx_put_image_to_window(game->window.mlx, game->window.win, 
+                           game->canvas.img, 0, 0);
+}
+
+static void	pixel(t_game *game, int col, int row, int color)
 {
 	int	x;
 	int	y;
+	int	screen_y;
+	int	screen_x;
 
 	y = 0;
 	while (y < SIZE)
@@ -29,8 +49,9 @@ static void	put_pixel(t_game *game, int col, int row, int color)
 		x = 0;
 		while (x < SIZE)
 		{
-			mlx_pixel_put(game->window.mlx, game->window.win, \
-				col * SIZE + x, row * SIZE + y, color);
+			screen_x = col * SIZE + x;
+			screen_y = row * SIZE + y;
+			put_pixel(&game->canvas, screen_x, screen_y, color);
 			x++;
 		}
 		y++;
@@ -59,7 +80,7 @@ void	render_2d_map(t_game *game)
 				color = PLAYER;
 			else
 				color = EMPTY;
-			put_pixel(game, x, y, color);
+			pixel(game, x, y, color);
 			x++;
 		}
 		y++;

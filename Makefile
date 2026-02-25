@@ -19,8 +19,8 @@ SRCS = srcs/main.c \
        srcs/hooks.c \
        srcs/parse.c \
        srcs/utils.c \
-	   srcs/render.c \
-	   srcs/map.c
+	   srcs/map.c \
+	   srcs/render.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -50,7 +50,7 @@ clean:
 # Clean everything
 fclean: clean
 	rm -f $(NAME)
-	@make -C $(MLX_DIR) fclean
+	@make -C $(MLX_DIR) clean
 	@make -C $(LIBFT_DIR) fclean
 
 # Recompile
