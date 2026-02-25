@@ -12,6 +12,9 @@
 
 #include "cub3d.h"
 
+/*
+Checks that all characters in the map line are the allowed ones (01 NSEW) to identify map lines
+*/
 static int	is_map(char *line)
 {
 	int	i;
@@ -26,6 +29,12 @@ static int	is_map(char *line)
 	return (i > 0);
 }
 
+/*
+Goes through the .cub file and looks for map lines.
+It adds one to the height for each line.
+It then calculates the length of the line.
+If its wider than the previous ones it sets the width value to this length.
+*/
 int	get_map_size(char *map_name, int *height, int *width)
 {
 	char	*line;
@@ -56,6 +65,10 @@ int	get_map_size(char *map_name, int *height, int *width)
 	return (SUCCESS);
 }
 
+/*
+It allocates space for the map string array of the number of lines in the map. 
+It then reads the .cub file and copies each line into a string in the array.
+*/
 int	load_map(char *map_name, t_map *map)
 {
 	int		fd;
