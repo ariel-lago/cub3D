@@ -17,7 +17,7 @@
 #define FLOOR	0xFF99FF
 #define PLAYER	0xFF6666
 #define EMPTY	0x66F99F
-#define LINE	0xFF0000
+#define LINE	0x66F99F
 
 void create_canvas(t_game *game)
 {
