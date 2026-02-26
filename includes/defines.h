@@ -40,7 +40,9 @@
 
 typedef struct s_key
 {
-	bool	pressed[256];	
+	bool	pressed[256];
+	bool	left;
+	bool	right;
 }	t_key;
 
 typedef struct  s_img
@@ -67,8 +69,8 @@ typedef	struct s_player
 	double	pos_y;
 	double	dir_x;
 	double	dir_y;
-        double  plane_x;
-        double  plane_y;
+    double  plane_x;
+    double  plane_y;
 	double	move_speed;
 	double  rot_speed;
 }	t_player;

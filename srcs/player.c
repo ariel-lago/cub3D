@@ -27,12 +27,12 @@ void    init_player(t_game *game)
             game->player.dir_x = 0;
             game->player.dir_y = -1;
         }
-        else if (game->map.player_dir = 'E')
+        else if (game->map.player_dir == 'E')
         {
             game->player.dir_x = 1;
             game->player.dir_y = 0;
         }
-        else if (game->map.player_dir = 'W')
+        else if (game->map.player_dir == 'W')
         {
             game->player.dir_x = -1;
             game->player.dir_y = 0;
@@ -40,6 +40,12 @@ void    init_player(t_game *game)
 
         game->player.plane_x = game->player.dir_y * 0.66;
         game->player.plane_y = game->player.dir_x * 0.66;
-        game->player.move_speed = 0.05;
+        game->player.move_speed = 0.01;
         game->player.rot_speed = 0.03;
+
+        ft_printf("\n=== START GAME ===\n");
+        ft_printf("Initial position: (%d, %d)\n", 
+           (int)game->player.pos_x, (int)game->player.pos_y);
+        ft_printf("Initial direction: (%d, %d) -> %c\n",
+           (int)game->player.dir_x, (int)game->player.dir_y, game->map.player_dir);
 }

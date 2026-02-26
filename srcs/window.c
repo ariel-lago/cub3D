@@ -51,25 +51,29 @@ static void	create_win(t_win *window)
 	window->win = NULL;
 }
 
-void	init_window(t_win *window)
+int	init_window(t_win *window)
 {
 	create_win(window);
 
 	window->mlx = mlx_init();
 	if (!window->mlx)
-		error("Error initializing MinilibX");
+		return(error("Error initializing MinilibX"), FAILURE);
 
 	window->win = mlx_new_window(window->mlx,
 					window->width,
 					window->height,
 					window->title);
 	if (!window->win)
-		error("Error creating Window");
+		return(error("Error creating Window"), FAILURE);
+    return (SUCCESS);
 }
 
-int	close_window(t_win *window)
+int	close_window(t_game *game)
 {
-	mlx_destroy_window(window->mlx, window->win);
+    ft_printf("\n===GAME OVER===\n");
+    ft_printf("Final position: (%d, %d)\n", (int)game->player.pos_x, (int)game->player.pos_y);
+    printf("Final direction: (%.2f, %.2f)\n", game->player.dir_x, game->player.dir_y);
+	mlx_destroy_window(game->window.mlx, game->window.win);
 	exit(0);
 	return (0);
 }

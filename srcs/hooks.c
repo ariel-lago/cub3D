@@ -15,37 +15,26 @@
 int	key_hook(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
-		close_window(&game->window);
-
-	game->keys.pressed[keycode] = true;
+		close_window(game);
+	if (keycode == KEY_LEFT)
+		game->keys.left = true;
+	if (keycode == KEY_RIGHT)
+		game->keys.right = true;
+	if (keycode >= 0 && keycode < 256)
+		game->keys.pressed[keycode] = true;
 	
 	return (0);
 }
 
 int	key_release(int keycode, t_game *game)
 {
-	game->keys.pressed[keycode] = false;
+	
+	if (keycode == KEY_LEFT)
+		game->keys.left = false;
+	if (keycode == KEY_RIGHT)
+		game->keys.right = false;
+	if (keycode >= 0 && keycode < 256)
+		game->keys.pressed[keycode] = false;
 
 	return (0);
 }
-
-/*
-int	game_loop(t_game *game)
-{
-	if (game->keys.pressed[KEY_W])
-		move_forward(game);
-	if (game->keys.pressed[KEY_A])
-		move_left(game);
-	if (game->keys.pressed[KEY_S])
-		move_backward(game);
-	if (game->keys.pressed[KEY_D])
-		move_right(game);
-	if (game->keys.pressed[KEY_LEFT])
-		rotate_left(game);
-	if (game->keys.pressed[KEY_RIGHT])
-		rotate_right(game);
-
-	render(game);
-	return (0);
-} */
-
