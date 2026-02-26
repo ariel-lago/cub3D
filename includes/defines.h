@@ -31,6 +31,10 @@
 # define EVENT_KEY_PRESS 2
 # define EVENT_KEY_RELEASE 3
 # define KEY_ESC 65307
+
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
+
 /*
 # define EVENT_MOUSE_PRESS 4
 # define EVENT_MOUSE_RELEASE 5

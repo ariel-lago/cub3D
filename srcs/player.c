@@ -40,8 +40,8 @@ void    init_player(t_game *game)
 
         game->player.plane_x = game->player.dir_y * 0.66;
         game->player.plane_y = game->player.dir_x * 0.66;
-        game->player.move_speed = 0.01;
-        game->player.rot_speed = 0.03;
+        game->player.move_speed = 0.025;
+        game->player.rot_speed = 0.015;
 
         ft_printf("\n=== START GAME ===\n");
         ft_printf("Initial position: (%d, %d)\n", 

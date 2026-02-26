@@ -12,28 +12,76 @@
 
 #include "cub3d.h"
 
-static void    go_straight(t_player *player)
+static void    go_straight(t_player *player, t_map *map)
 {
-        player->pos_x += player->dir_x * player->move_speed;
-        player->pos_y += player->dir_y * player->move_speed;
+    double  new_x;
+    double  new_y;
+
+    new_x = player->pos_x + player->dir_x * player->move_speed;
+    new_y = player->pos_y + player->dir_y * player->move_speed;
+
+    if (new_x < 0 || new_x >= map->map_width ||
+        new_y < 0 || new_y >= map->map_height)
+        return ;
+    if (map->map[(int)new_y][(int)new_x] != '1')
+    {
+        player->pos_x = new_x;
+        player->pos_y = new_y;
+    }
 }
 
-static void    go_back(t_player *player)
+static void    go_back(t_player *player, t_map *map)
 {
-        player->pos_x -= player->dir_x * player->move_speed;
-        player->pos_y -= player->dir_y * player->move_speed;
+    double  new_x;
+    double  new_y;
+
+    new_x = player->pos_x - player->dir_x * player->move_speed;
+    new_y = player->pos_y - player->dir_y * player->move_speed;
+
+    if (new_x < 0 || new_x >= map->map_width ||
+        new_y < 0 || new_y >= map->map_height)
+        return ;
+    if (map->map[(int)new_y][(int)new_x] != '1')
+    {
+        player->pos_x = new_x;
+        player->pos_y = new_y;
+    }
 }
 
-static void    go_left(t_player *player)
+static void    go_left(t_player *player, t_map *map)
 {
-        player->pos_x += player->dir_x * player->move_speed;
-        player->pos_y -= player->dir_y * player->move_speed;
+    double  new_x;
+    double  new_y;
+
+    new_x = player->pos_x + player->dir_y * player->move_speed;
+    new_y = player->pos_y - player->dir_x * player->move_speed;
+
+    if (new_x < 0 || new_x >= map->map_width ||
+        new_y < 0 || new_y >= map->map_height)
+        return ;
+    if (map->map[(int)new_y][(int)new_x] != '1')
+    {
+        player->pos_x = new_x;
+        player->pos_y = new_y;
+    }
 }
 
-static void    go_right(t_player *player)
+static void    go_right(t_player *player, t_map *map)
 {
-        player->pos_x -= player->dir_x * player->move_speed;
-        player->pos_y += player->dir_y * player->move_speed;
+    double  new_x;
+    double  new_y;
+
+    new_x = player->pos_x - player->dir_y * player->move_speed;
+    new_y = player->pos_y + player->dir_x * player->move_speed;
+
+    if (new_x < 0 || new_x >= map->map_width ||
+        new_y < 0 || new_y >= map->map_height)
+        return ;
+    if (map->map[(int)new_y][(int)new_x] != '1')
+    {
+        player->pos_x = new_x;
+        player->pos_y = new_y;
+    }
 }
 
 static void     rotate_player(t_player *player, double angle)
@@ -55,13 +103,13 @@ static void     rotate_player(t_player *player, double angle)
 int     move_player(t_game *game)
 {
         if (game->keys.pressed[KEY_W])
-            go_straight(&game->player);
+            go_straight(&game->player, &game->map);
         if (game->keys.pressed[KEY_S])
-            go_back(&game->player);
+            go_back(&game->player, &game->map);
         if (game->keys.pressed[KEY_A])
-            go_left(&game->player);
+            go_left(&game->player, &game->map);
         if (game->keys.pressed[KEY_D])
-            go_right(&game->player);
+            go_right(&game->player, &game->map);
         if (game->keys.left)
             rotate_player(&game->player, -game->player.rot_speed);
         if (game->keys.right)

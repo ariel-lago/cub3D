@@ -74,6 +74,20 @@ static void	pixel(t_game *game, int col, int row, int color)
 	}
 }
 
+static int	within_bounds(t_game *game)
+{
+	int	ahead_x;
+	int	ahead_y;
+
+	ahead_x = (int)(game->player.pos_x + game->player.dir_x);
+	ahead_y = (int)(game->player.pos_y + game->player.dir_y);
+
+	if (ahead_x >= 0 && ahead_x < game->map.map_width &&
+		ahead_y >= 0 && ahead_y < game->map.map_height)
+		return (true);
+	return (false);
+}
+
 static void	draw_dir_2d(t_game *game)
 {
 	int	center_x;
@@ -85,12 +99,13 @@ static void	draw_dir_2d(t_game *game)
 	center_x = (int)game->player.pos_x * SIZE + SIZE/2;
 	center_y = (int)game->player.pos_y * SIZE + SIZE/2;
 
-	i = 6;
-	while (i++ <= 17)
+	i = 1;
+	while (i++ <= 10)
 	{
 		dot_x = center_x + (int)(game->player.dir_x * i);
         dot_y = center_y + (int)(game->player.dir_y * i);
-        put_pixel(&game->canvas, dot_x, dot_y, LINE);
+        if (within_bounds(game) == true)
+			put_pixel(&game->canvas, dot_x, dot_y, LINE);
 	}
 }
 
