@@ -57,14 +57,13 @@ int	init_window(t_win *window)
 
 	window->mlx = mlx_init();
 	if (!window->mlx)
-		return(error("Error initializing MinilibX"), FAILURE);
-
+		return(error("MinilibX failed", 1), FAILURE);
 	window->win = mlx_new_window(window->mlx,
 					window->width,
 					window->height,
 					window->title);
 	if (!window->win)
-		return(error("Error creating Window"), FAILURE);
+		return(error("Error creating Window", 1), FAILURE);
     return (SUCCESS);
 }
 

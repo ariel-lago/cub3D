@@ -12,10 +12,18 @@
 
 #include "utils.h"
 
-void	error(char *message)
+/*
+Writes "Error\n" to stderr
+If p flag is activated it sends the message through perror
+Otherwise it simply sends the message to strderr
+*/
+void	error(char *message, int p)
 {
-	perror(message);
-	exit (1);
+	write(2, "Error\n", 6);
+    if (p)
+        perror(message);
+    else
+        ft_putendl_fd(message, 2);
 }
 
 void free_array(char **arr)
