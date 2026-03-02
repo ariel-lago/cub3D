@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/24 14:41:20 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/02/27 15:21:07 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define EVENT_KEY_PRESS 2
 # define EVENT_KEY_RELEASE 3
 # define KEY_ESC 65307
+# define KEY_PLUS 69
+# define KEY_MINUS 78
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
@@ -49,34 +51,35 @@ typedef struct s_key
 	bool	right;
 }	t_key;
 
-typedef struct  s_img
+typedef struct s_img
 {
-        void    *img;
-        char    *addr;
-        int     bpp;
-        int     line_len;
-        int     endian;
-}       t_img;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
-typedef	struct	s_win
+typedef struct s_win
 {
 	void	*mlx;
 	void	*win;
-	int	width;
-	int	height;
+	int		width;
+	int		height;
 	char	*title;
 }	t_win;
 
-typedef	struct s_player
+typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
 	double	dir_y;
-    double  plane_x;
-    double  plane_y;
+	double	plane_x;
+	double	plane_y;
 	double	move_speed;
-	double  rot_speed;
+	double	rot_speed;
+	double	fov;
 }	t_player;
 
 typedef struct s_map
@@ -94,13 +97,11 @@ typedef struct s_map
 
 typedef struct s_game
 {
-	t_win	        window;
-	t_map	        map;
-	t_key	        keys;
-	t_img           canvas;
-        t_player        player;
+	t_win		window;
+	t_map		map;
+	t_key		keys;
+	t_img		canvas;
+	t_player	player;
 }	t_game;
-
-
 
 #endif

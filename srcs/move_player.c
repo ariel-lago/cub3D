@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:53:16 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/25 16:53:44 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/02/27 15:53:00 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,8 @@ static void    go_right(t_player *player, t_map *map)
     }
 }
 
-static void     rotate_player(t_player *player, double angle)
-{
-    double  old_dir_x;
-    double  old_plane_x;
-
-    old_dir_x = player->dir_x;
-    old_plane_x = player->plane_x;
-    
-    player->dir_x = player->dir_x * cos(angle) - player->dir_y * sin(angle);
-    player->dir_y = old_dir_x * sin(angle) + player->dir_y * cos(angle);
-
-    player->plane_x = player->plane_x * cos(angle) - player->plane_y * sin(angle);
-    player->plane_y = old_plane_x * sin(angle) + player->plane_y * cos(angle);
-
-}
-
+/* checks if any relevant keys were pressed
+    and moves player/view accordingly */
 int     move_player(t_game *game)
 {
         if (game->keys.pressed[KEY_W])
@@ -114,6 +100,11 @@ int     move_player(t_game *game)
             rotate_player(&game->player, -game->player.rot_speed);
         if (game->keys.right)
             rotate_player(&game->player, game->player.rot_speed);
+
+        if (game->keys.pressed[KEY_MINUS] && game->player.fov > 45.00)
+            set_player_plane(game, game->player.fov - 5.00);
+        if (game->keys.pressed[KEY_PLUS] && game->player.fov < 90)
+            set_player_plane(game, game->player.fov + 5.00);
         
         return (SUCCESS);
 }
