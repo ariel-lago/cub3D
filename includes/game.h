@@ -22,9 +22,9 @@ void    create_canvas(t_game *game);
 void    draw_window(t_game *game);
 void    put_pixel(t_img *img, int x, int y, int color);
 void    init_player(t_game *game);
-void    set_player_plane(t_game *game);
 void     rotate_player(t_player *player, double angle);
 int     move_player(t_game *game);
+void    set_player_plane(t_game *game, double fov_degree);
 int	game_loop(t_game *game);
 
 #endif

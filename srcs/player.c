@@ -20,26 +20,7 @@ static void    print_start_stats(t_game *game)
         (int)game->player.pos_x, (int)game->player.pos_y);
     ft_printf("Initial direction: (%d, %d) -> %c\n",
         (int)game->player.dir_x, (int)game->player.dir_y, game->map.player_dir);
-    ft_printf("FOV: %f° → %f rad\n", game->player.fov, game->player.fov * M_PI / 180.0);
-    ft_printf("Plane scale: %f\n", tan((game->player.fov * M_PI / 180.0) / 2.0));
-}
-
-/* sets the plane vector:
-    1. converts FOV (degrees) into radians
-    2. calculates half-angle scale 
-    3. Sets plane vector perpendicular to dir
-   Call this after changing FOV or player direction.
-*/
-void    set_player_plane(t_game *game)
-{
-    double  fov_rad;
-    double  plane_len;
-
-    fov_rad = game->player.fov * M_PI / 180.0;
-    plane_len = tan(fov_rad/ 2.0);
-
-    game->player.plane_x = -game->player.dir_y * plane_len;
-    game->player.plane_y = game->player.dir_x * plane_len;
+    ft_printf("FOV: %d°, rad %d\n", (int)game->player.fov, (int)game->player.fov * M_PI / 180.0);
 }
 
 /* */
@@ -83,7 +64,7 @@ void    init_player(t_game *game)
     game->player.move_speed = 0.025; // -> how many units (fields) per frame
     game->player.rot_speed = 0.01;   // -> how many radians per frame (ca 0.5°)
 
-    set_player_plane(game);
+    set_player_plane(game, game->player.fov);
 
     print_start_stats(game);
 }
