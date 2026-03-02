@@ -20,7 +20,7 @@ static void    print_start_stats(t_game *game)
         (int)game->player.pos_x, (int)game->player.pos_y);
     ft_printf("Initial direction: (%d, %d) -> %c\n",
         (int)game->player.dir_x, (int)game->player.dir_y, game->map.player_dir);
-    ft_printf("FOV: %d°, rad %d\n", (int)game->player.fov, (int)game->player.fov * M_PI / 180.0);
+    printf("FOV: %.1f°, rad %.2f\n", game->player.fov, game->player.fov * M_PI / 180.0);
 }
 
 /* */

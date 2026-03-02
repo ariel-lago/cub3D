@@ -26,13 +26,14 @@
 # define KEY_D 100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+# define KEY_UP 65362
+# define KEY_DOWN 65364
 
 # define EVENT_CLOSE 17
 # define EVENT_KEY_PRESS 2
 # define EVENT_KEY_RELEASE 3
-# define KEY_ESC 65307
-# define KEY_PLUS 61
-# define KEY_MINUS 54
+
+
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
@@ -49,6 +50,8 @@ typedef struct s_key
 	bool	pressed[256];
 	bool	left;
 	bool	right;
+	bool	up;
+	bool	down;
 }	t_key;
 
 typedef struct s_img

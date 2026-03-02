@@ -71,8 +71,8 @@ int	close_window(t_game *game)
 {
     ft_printf("\n===GAME OVER===\n");
     ft_printf("Final position: (%d, %d)\n", (int)game->player.pos_x, (int)game->player.pos_y);
-    ft_printf("Final direction: (%d, %s)\n", (int)game->player.dir_x, (int)game->player.dir_y);
-    ft_printf("Final FOV: %d°, rad %d\n", (int)game->player.fov, (int)game->player.fov * M_PI / 180.0);
+    printf("Final direction: (%.2f, %.2f)\n", game->player.dir_x, game->player.dir_y);
+    printf("Final FOV: %.1f°, rad %.2f\n", game->player.fov, game->player.fov * M_PI / 180.0);
 	mlx_destroy_window(game->window.mlx, game->window.win);
 	exit(0);
 	return (0);

@@ -101,9 +101,9 @@ int     move_player(t_game *game)
         if (game->keys.right)
             rotate_player(&game->player, game->player.rot_speed);
 
-        if (game->keys.pressed[KEY_MINUS] && game->player.fov > 45.00)
+        if (game->keys.down && game->player.fov > 45.00)
             set_player_plane(game, game->player.fov - 5.00);
-        if (game->keys.pressed[KEY_PLUS] && game->player.fov < 90)
+        if (game->keys.up && game->player.fov < 90.00)
             set_player_plane(game, game->player.fov + 5.00);
         
         return (SUCCESS);
