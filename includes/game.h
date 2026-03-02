@@ -26,5 +26,6 @@ void     rotate_player(t_player *player, double angle);
 int     move_player(t_game *game);
 void    set_player_plane(t_game *game, double fov_degree);
 int	game_loop(t_game *game);
+t_vector rotate_vector(t_vector vector, double angle);
 
 #endif

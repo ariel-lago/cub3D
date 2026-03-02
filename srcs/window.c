@@ -73,26 +73,26 @@ int	init_window(t_win *window)
 static void print_end_stats(t_game *game)
 {
     printf("\n===GAME OVER===\n");
-    printf("Final position: (%d, %d)\n", (int)game->player.pos_x, (int)game->player.pos_y);
-    printf("Final direction: (%.2f, %.2f) -> ", game->player.dir_x, game->player.dir_y);
-    if (game->player.dir_x > 0 && game->player.dir_y < 0)  // Northeast quadrant
+    printf("Final position: (%d, %d)\n", (int)game->player.pos.x, (int)game->player.pos.y);
+    printf("Final direction: (%.2f, %.2f) -> ", game->player.dir.x, game->player.dir.y);
+    if (game->player.dir.x > 0 && game->player.dir.y < 0)  // Northeast quadrant
         printf("NE");
-    else if (game->player.dir_x > 0 && game->player.dir_y > 0)  // Southeast quadrant
+    else if (game->player.dir.x > 0 && game->player.dir.y > 0)  // Southeast quadrant
         printf("SE");
-    else if (game->player.dir_x < 0 && game->player.dir_y < 0)  // Northwest quadrant
+    else if (game->player.dir.x < 0 && game->player.dir.y < 0)  // Northwest quadrant
         printf("NW");
-    else if (game->player.dir_x < 0 && game->player.dir_y > 0)  // Southwest quadrant
+    else if (game->player.dir.x < 0 && game->player.dir.y > 0)  // Southwest quadrant
         printf("SW");
-    else if (game->player.dir_y < -0.90)  // North sector
+    else if (game->player.dir.y < -0.90)  // North sector
         printf("N");
-    else if (game->player.dir_y > 0.90)  // South sector
+    else if (game->player.dir.y > 0.90)  // South sector
         printf("S");
-    else if (game->player.dir_x > 0.92)  // East sector
+    else if (game->player.dir.x > 0.92)  // East sector
         printf("E");
-    else if (game->player.dir_x < -0.9)  // West sector
+    else if (game->player.dir.x < -0.9)  // West sector
         printf("W");
     printf("\n");
-    printf("Final FOV: %.1f°, rad %.2f\n", game->player.fov, game->player.fov * M_PI / 180.0);
+    printf("Final FOV: %.1f°, rad %.2f\n", game->player.fov, game->player.fov * PI / 180.0);
 }
 
 int	close_window(t_game *game)

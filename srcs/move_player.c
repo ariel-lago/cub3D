@@ -14,73 +14,69 @@
 
 static void    go_straight(t_player *player, t_map *map)
 {
-    double  new_x;
-    double  new_y;
+    t_vector    new;
 
-    new_x = player->pos_x + player->dir_x * player->move_speed;
-    new_y = player->pos_y + player->dir_y * player->move_speed;
+    new.x = player->pos.x + player->dir.x * player->move_speed;
+    new.y = player->pos.y + player->dir.y * player->move_speed;
 
-    if (new_x < 0 || new_x >= map->map_width ||
-        new_y < 0 || new_y >= map->map_height)
+    if (new.x < 0 || new.x >= map->map_width ||
+        new.y < 0 || new.y >= map->map_height)
         return ;
-    if (map->map[(int)new_y][(int)new_x] != '1')
+    if (map->map[(int)new.y][(int)new.x] != '1')
     {
-        player->pos_x = new_x;
-        player->pos_y = new_y;
+        player->pos.x = new.x;
+        player->pos.y = new.y;
     }
 }
 
 static void    go_back(t_player *player, t_map *map)
 {
-    double  new_x;
-    double  new_y;
+    t_vector    new;
 
-    new_x = player->pos_x - player->dir_x * player->move_speed;
-    new_y = player->pos_y - player->dir_y * player->move_speed;
+    new.x = player->pos.x - player->dir.x * player->move_speed;
+    new.y = player->pos.y - player->dir.y * player->move_speed;
 
-    if (new_x < 0 || new_x >= map->map_width ||
-        new_y < 0 || new_y >= map->map_height)
+    if (new.x < 0 || new.x >= map->map_width ||
+        new.y < 0 || new.y >= map->map_height)
         return ;
-    if (map->map[(int)new_y][(int)new_x] != '1')
+    if (map->map[(int)new.y][(int)new.x] != '1')
     {
-        player->pos_x = new_x;
-        player->pos_y = new_y;
+        player->pos.x = new.x;
+        player->pos.y = new.y;
     }
 }
 
 static void    go_left(t_player *player, t_map *map)
 {
-    double  new_x;
-    double  new_y;
+    t_vector    new;
 
-    new_x = player->pos_x + player->dir_y * player->move_speed;
-    new_y = player->pos_y - player->dir_x * player->move_speed;
+    new.x = player->pos.x + player->dir.x * player->move_speed;
+    new.y = player->pos.y - player->dir.y * player->move_speed;
 
-    if (new_x < 0 || new_x >= map->map_width ||
-        new_y < 0 || new_y >= map->map_height)
+    if (new.x < 0 || new.x >= map->map_width ||
+        new.y < 0 || new.y >= map->map_height)
         return ;
-    if (map->map[(int)new_y][(int)new_x] != '1')
+    if (map->map[(int)new.y][(int)new.x] != '1')
     {
-        player->pos_x = new_x;
-        player->pos_y = new_y;
+        player->pos.x = new.x;
+        player->pos.y = new.y;
     }
 }
 
 static void    go_right(t_player *player, t_map *map)
 {
-    double  new_x;
-    double  new_y;
+    t_vector    new;
 
-    new_x = player->pos_x - player->dir_y * player->move_speed;
-    new_y = player->pos_y + player->dir_x * player->move_speed;
+    new.x = player->pos.x - player->dir.x * player->move_speed;
+    new.y = player->pos.y + player->dir.y * player->move_speed;
 
-    if (new_x < 0 || new_x >= map->map_width ||
-        new_y < 0 || new_y >= map->map_height)
+    if (new.x < 0 || new.x >= map->map_width ||
+        new.y < 0 || new.y >= map->map_height)
         return ;
-    if (map->map[(int)new_y][(int)new_x] != '1')
+    if (map->map[(int)new.y][(int)new.x] != '1')
     {
-        player->pos_x = new_x;
-        player->pos_y = new_y;
+        player->pos.x = new.x;
+        player->pos.y = new.y;
     }
 }
 
@@ -101,10 +97,10 @@ int     move_player(t_game *game)
         if (game->keys.right)
             rotate_player(&game->player, game->player.rot_speed);
 
-        if (game->keys.down && game->player.fov > 45.00)
-            set_player_plane(game, game->player.fov - 5.00);
-        if (game->keys.up && game->player.fov < 90.00)
-            set_player_plane(game, game->player.fov + 5.00);
+        if (game->keys.down && game->player.fov > 30.00)
+            set_player_plane(game, game->player.fov - 1.00);
+        if (game->keys.up && game->player.fov < 120.00)
+            set_player_plane(game, game->player.fov + 1.00);
         
         return (SUCCESS);
 }

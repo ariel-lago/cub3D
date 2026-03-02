@@ -24,6 +24,25 @@
     - tan = opposite / adjacent = height/width
 */
 
+t_vector rotate_vector(t_vector vector, double angle)
+{
+    t_vector result;
+    double old_x;
+    
+    old_x = vector.x;
+    
+    result.x = vector.x * cos(angle) - vector.y * sin(angle);
+    result.y = old_x * sin(angle) + vector.y * cos(angle);
+    
+    return (result);
+}
+
+void rotate_player(t_player *player, double angle)
+{
+    player->dir = rotate_vector(player->dir, angle);
+    player->plane = rotate_vector(player->plane, angle);
+}
+
 /* Rotates the player's direction and plane vectors 
     by a given angle (+ = right, - = left)
     1. Stores original x-values
@@ -33,6 +52,7 @@
         -> stay = cos(angle), swap = sin(angle)
     Both vectors rotate together to keep camera perpendicular
 */
+/*
 void     rotate_player(t_player *player, double angle)
 {
     double  old_dir_x;
@@ -47,7 +67,7 @@ void     rotate_player(t_player *player, double angle)
     player->plane_x = player->plane_x * cos(angle) - player->plane_y * sin(angle);
     player->plane_y = old_plane_x * sin(angle) + player->plane_y * cos(angle);
 
-}
+}*/
 /* Examples: 
 
     1. Rotate from South to West (90 degrees)
@@ -154,8 +174,8 @@ void    set_player_plane(t_game *game, double fov_degree)
     fov_rad = game->player.fov * PI / 180.0;
     plane_len = tan(fov_rad/ 2.0);
 
-    game->player.plane_x = -game->player.dir_y * plane_len;
-    game->player.plane_y = game->player.dir_x * plane_len;
+    game->player.plane.x = -game->player.dir.y * plane_len;
+    game->player.plane.y = game->player.dir.x * plane_len;
 }
 
 /* 

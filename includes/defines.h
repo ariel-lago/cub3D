@@ -73,14 +73,17 @@ typedef struct s_win
 	char	*title;
 }	t_win;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector ;
+
 typedef struct s_player
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	t_vector	pos;
+	t_vector	dir;
+	t_vector	plane;
 	double	move_speed;
 	double	rot_speed;
 	double	fov;
