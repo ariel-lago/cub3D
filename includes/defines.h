@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/27 15:21:07 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:32:26 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 # define EVENT_CLOSE 17
 # define EVENT_KEY_PRESS 2
 # define EVENT_KEY_RELEASE 3
-
-
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
@@ -77,16 +75,16 @@ typedef struct s_vector
 {
 	double	x;
 	double	y;
-}	t_vector ;
+}	t_vector;
 
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;
-	double	move_speed;
-	double	rot_speed;
-	double	fov;
+	double		move_speed;
+	double		rot_speed;
+	double		fov;
 }	t_player;
 
 typedef struct s_map
@@ -102,6 +100,23 @@ typedef struct s_map
 	int		ceiling_color;
 }	t_map;
 
+typedef struct s_ray
+{
+	double		cam;
+	int			map_x;
+	int			map_y;
+	t_vector	dist;
+	t_vector	first_dist;
+	int			step_x;
+	int			step_y;
+	t_vector	raydir;
+	double		raypos;
+	int			wall_type;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+}	t_ray;
+
 typedef struct s_game
 {
 	t_win		window;
@@ -109,6 +124,7 @@ typedef struct s_game
 	t_key		keys;
 	t_img		canvas;
 	t_player	player;
+	t_ray		ray;
 }	t_game;
 
 #endif
