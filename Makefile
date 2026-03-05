@@ -23,7 +23,8 @@ SRCS = srcs/main.c \
 	   srcs/render.c \
 	   srcs/player.c \
 	   srcs/move_player.c \
-	   srcs/player_view.c
+	   srcs/player_view.c \
+	   srcs/debug.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)

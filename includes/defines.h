@@ -64,6 +64,14 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct	s_textures
+{
+	t_img	north;
+	t_img	south;
+	t_img	west;
+	t_img	east;
+}	t_textures;
+
 typedef struct s_win
 {
 	void	*mlx;
@@ -89,6 +97,13 @@ typedef struct s_player
 	double	fov;
 }	t_player;
 
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
 typedef struct s_map
 {
 	char	**map;
@@ -109,6 +124,7 @@ typedef struct s_game
 	t_key		keys;
 	t_img		canvas;
 	t_player	player;
+	t_textures	textures;
 }	t_game;
 
 #endif

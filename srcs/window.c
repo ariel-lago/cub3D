@@ -13,14 +13,24 @@
 #include "cub3d.h"
 #include "game.h"
 
+/* Fills pixel at (x, y) with color
+    Offset = (y * bytes per row) + (x * bytes per pixel)
+    Added to image buffer start to locate pixel,
+    writes all 4 bytes to fill with color
+    (works w bpp = 32)
+*/
 void put_pixel(t_img *img, int x, int y, int color)
 {
-    char *dst;
+    char *pixel_data;
 
-    dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    *(unsigned int*)dst = color;
+    pixel_data = img->addr + (y * img->line_len + x * (img->bpp / 8));
+    *(unsigned int*)pixel_data = color;
 }
 
+/* Fills window with (top)half ceiling, (bottom)half floor
+    Iterates through every pixel row by row, column by column
+    Uses WIN_HEIGHT/2 as dividing line between colors.
+*/
 void    draw_window(t_game *game)
 {
     int x;
@@ -42,6 +52,9 @@ void    draw_window(t_game *game)
     }
 }
 
+/* Fills the new Window struct with dimensions/title
+    and sets missing pointer values to NULL.
+*/
 static void	create_win(t_win *window)
 {
 	window->width = WIN_WIDTH;
@@ -51,6 +64,12 @@ static void	create_win(t_win *window)
 	window->win = NULL;
 }
 
+/*  Initiates the program Window
+    mlx_init() connects program to display server
+    -> returns pointer to graphics session data (void *mlx)
+    mlx_new_window() calls underlying graphics framework
+    -> returns pointer to window data (void *win)
+*/
 int	init_window(t_win *window)
 {
 	create_win(window);
@@ -67,39 +86,16 @@ int	init_window(t_win *window)
     return (SUCCESS);
 }
 
-/* prints end pos, dir (converted into actual directions) and FOV.
-    uses printf -> delete or change ft_printf before submission.
+/*  Closes the game window
+    mlx_destroy_window() removes the window, frees memory
+    mlx_destroy_display() disconnects program from display server
 */
-static void print_end_stats(t_game *game)
-{
-    printf("\n===GAME OVER===\n");
-    printf("Final position: (%d, %d)\n", (int)game->player.pos.x, (int)game->player.pos.y);
-    printf("Final direction: (%.2f, %.2f) -> ", game->player.dir.x, game->player.dir.y);
-    if (game->player.dir.x > 0 && game->player.dir.y < 0)  // Northeast quadrant
-        printf("NE");
-    else if (game->player.dir.x > 0 && game->player.dir.y > 0)  // Southeast quadrant
-        printf("SE");
-    else if (game->player.dir.x < 0 && game->player.dir.y < 0)  // Northwest quadrant
-        printf("NW");
-    else if (game->player.dir.x < 0 && game->player.dir.y > 0)  // Southwest quadrant
-        printf("SW");
-    else if (game->player.dir.y < -0.90)  // North sector
-        printf("N");
-    else if (game->player.dir.y > 0.90)  // South sector
-        printf("S");
-    else if (game->player.dir.x > 0.92)  // East sector
-        printf("E");
-    else if (game->player.dir.x < -0.9)  // West sector
-        printf("W");
-    printf("\n");
-    printf("Final FOV: %.1f°, rad %.2f\n", game->player.fov, game->player.fov * PI / 180.0);
-}
-
 int	close_window(t_game *game)
 {
     print_end_stats(game);
     mlx_destroy_window(game->window.mlx, game->window.win);
+    mlx_destroy_display(game->window.mlx);
+    free(game->window.mlx);
 	exit(0);
 	return (0);
 }
-

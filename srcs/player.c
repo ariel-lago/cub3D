@@ -12,18 +12,9 @@
 
 #include "cub3d.h"
 
-//DEBUG -> prints start stats 
-static void    print_start_stats(t_game *game)
-{
-    ft_printf("\n=== START GAME ===\n");
-    ft_printf("Initial position: (%d, %d)\n", 
-        (int)game->player.pos.x, (int)game->player.pos.y);
-    ft_printf("Initial direction: (%d, %d) -> %c\n",
-        (int)game->player.dir.x, (int)game->player.dir.y, game->map.player_dir);
-    printf("FOV: %.1f°, rad %.2f\n", game->player.fov, game->player.fov * PI / 180.0);
-}
-
-/* */
+/*  sets player direction according to map info
+    (0, -1) = N, (0, 1) = S, (-1, 0) = W, (1, 0) = E
+*/
 static void    init_player_dir(t_game *game)
 {
     if (game->map.player_dir == 'S')

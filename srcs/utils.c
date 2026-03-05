@@ -26,6 +26,7 @@ void	error(char *message, int p)
         ft_putendl_fd(message, 2);
 }
 
+/* frees an array of char *strings */
 void free_array(char **arr)
 {
     int i;

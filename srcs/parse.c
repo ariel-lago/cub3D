@@ -35,17 +35,31 @@ static char	*get_info(char *line, int *identifiers)
 	return (error("Identifier is missing information", 0), NULL);
 }
 
-/**
- * Converts a string like "220,100,0" into an integer color 0xDC6400
- * Returns -1 on error
+static int	is_valid_rgb(t_rgb color)
+{
+	return (color.r >= 0 && color.r <= 255 &&
+			color.g >= 0 && color.g <= 255 &&
+			color.b >= 0 && color.b <= 255);
+}
+
+int	rgb_to_int(t_rgb color)
+{
+	return ((color.r << 16) + (color.g << 8) + color.b);
+}
+
+/* Converts RGB-string into integer color:
+	- splits string by comma into Red, Green & Blue parts
+	- converts each part to int using atoi
+	- validates each value is within 0-255
+	- combines values using bitwise shifts
+	-> Red:   shifted left by 16 bits (into byte 2)
+    -> Green: shifted left by 8 bits  (into byte 1)
+    -> Blue:  no shift                (into byte 0)
  */
 static int parse_rgb(char *rgb_str)
 {
     char    **split;
-    int     r;
-    int     g;
-    int     b;
-    int     color;
+	t_rgb	rgb;
     
     if (!rgb_str)
         return (-1);
@@ -58,18 +72,16 @@ static int parse_rgb(char *rgb_str)
         return (-1);
     }
 
-    r = ft_atoi(split[0]);
-    g = ft_atoi(split[1]);
-    b = ft_atoi(split[2]);
+    rgb.r = ft_atoi(split[0]);
+    rgb.g = ft_atoi(split[1]);
+    rgb.b = ft_atoi(split[2]);
 
     free_array(split);
 
-    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+    if (!is_valid_rgb(rgb))
         return (-1);
 
-    color = (r << 16) | (g << 8) | b;
-    
-    return (color);
+    return (rgb_to_int(rgb));
 }
 
 /*

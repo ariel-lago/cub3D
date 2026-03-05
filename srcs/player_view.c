@@ -24,6 +24,13 @@
     - tan = opposite / adjacent = height/width
 */
 
+/* Rotates a vector by a given angle (+ = right, - = left)
+    1. Stores original x-value
+    2. Applies 2D rotation logic:
+        new_x = (stay * old_x) - (swap * old_y)
+        new_y = (swap * old_x) + (stay * old_y)
+        -> stay = cos(angle), swap = sin(angle)
+*/
 t_vector rotate_vector(t_vector vector, double angle)
 {
     t_vector result;
@@ -37,37 +44,15 @@ t_vector rotate_vector(t_vector vector, double angle)
     return (result);
 }
 
+/* Rotates the player's direction and plane vectors
+   Calls rotate function on both vectors to keep camera perpendicular
+*/
 void rotate_player(t_player *player, double angle)
 {
     player->dir = rotate_vector(player->dir, angle);
     player->plane = rotate_vector(player->plane, angle);
 }
 
-/* Rotates the player's direction and plane vectors 
-    by a given angle (+ = right, - = left)
-    1. Stores original x-values
-    2. Applies 2D rotation logic:
-        new_x = (stay * old_x) - (swap * old_y)
-        new_y = (swap * old_x) + (stay * old_y)
-        -> stay = cos(angle), swap = sin(angle)
-    Both vectors rotate together to keep camera perpendicular
-*/
-/*
-void     rotate_player(t_player *player, double angle)
-{
-    double  old_dir_x;
-    double  old_plane_x;
-
-    old_dir_x = player->dir_x;
-    old_plane_x = player->plane_x;
-    
-    player->dir_x = player->dir_x * cos(angle) - player->dir_y * sin(angle);
-    player->dir_y = old_dir_x * sin(angle) + player->dir_y * cos(angle);
-
-    player->plane_x = player->plane_x * cos(angle) - player->plane_y * sin(angle);
-    player->plane_y = old_plane_x * sin(angle) + player->plane_y * cos(angle);
-
-}*/
 /* Examples: 
 
     1. Rotate from South to West (90 degrees)
