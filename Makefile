@@ -24,6 +24,7 @@ SRCS = srcs/main.c \
 	   srcs/player.c \
 	   srcs/move_player.c \
 	   srcs/player_view.c \
+	   srcs/textures.c \
 	   srcs/debug.c
 
 # Object files

@@ -33,5 +33,6 @@ int     rgb_to_int(t_rgb color);
 // print stat messages -> debug.c
 void    print_start_stats(t_game *game);
 void    print_end_stats(t_game *game);
+void	debug_textures(t_game *game, int i);
 
 #endif

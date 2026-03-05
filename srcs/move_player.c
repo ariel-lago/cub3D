@@ -12,21 +12,23 @@
 
 #include "cub3d.h"
 
+static void update_pos(t_player *player, t_vector new, t_map *map)
+{
+    if (new.x < 0 || new.x >= map->map_width ||
+        new.y < 0 || new.y >= map->map_height ||
+       map->map[(int)new.y][(int)new.x] == '1' )
+        return;
+    player->pos.x = new.x;
+    player->pos.y = new.y;
+}
+
 static void    go_straight(t_player *player, t_map *map)
 {
     t_vector    new;
 
     new.x = player->pos.x + player->dir.x * player->move_speed;
     new.y = player->pos.y + player->dir.y * player->move_speed;
-
-    if (new.x < 0 || new.x >= map->map_width ||
-        new.y < 0 || new.y >= map->map_height)
-        return ;
-    if (map->map[(int)new.y][(int)new.x] != '1')
-    {
-        player->pos.x = new.x;
-        player->pos.y = new.y;
-    }
+    update_pos(player, new, map);
 }
 
 static void    go_back(t_player *player, t_map *map)
@@ -35,49 +37,25 @@ static void    go_back(t_player *player, t_map *map)
 
     new.x = player->pos.x - player->dir.x * player->move_speed;
     new.y = player->pos.y - player->dir.y * player->move_speed;
-
-    if (new.x < 0 || new.x >= map->map_width ||
-        new.y < 0 || new.y >= map->map_height)
-        return ;
-    if (map->map[(int)new.y][(int)new.x] != '1')
-    {
-        player->pos.x = new.x;
-        player->pos.y = new.y;
-    }
+    update_pos(player, new, map);
 }
 
 static void    go_left(t_player *player, t_map *map)
 {
     t_vector    new;
 
-    new.x = player->pos.x + player->dir.x * player->move_speed;
-    new.y = player->pos.y - player->dir.y * player->move_speed;
-
-    if (new.x < 0 || new.x >= map->map_width ||
-        new.y < 0 || new.y >= map->map_height)
-        return ;
-    if (map->map[(int)new.y][(int)new.x] != '1')
-    {
-        player->pos.x = new.x;
-        player->pos.y = new.y;
-    }
+    new.x = player->pos.x - player->plane.x * player->move_speed;
+    new.y = player->pos.y - player->plane.y * player->move_speed;
+    update_pos(player, new, map);
 }
 
 static void    go_right(t_player *player, t_map *map)
 {
     t_vector    new;
 
-    new.x = player->pos.x - player->dir.x * player->move_speed;
-    new.y = player->pos.y + player->dir.y * player->move_speed;
-
-    if (new.x < 0 || new.x >= map->map_width ||
-        new.y < 0 || new.y >= map->map_height)
-        return ;
-    if (map->map[(int)new.y][(int)new.x] != '1')
-    {
-        player->pos.x = new.x;
-        player->pos.y = new.y;
-    }
+    new.x = player->pos.x + player->plane.x * player->move_speed;
+    new.y = player->pos.y + player->plane.y * player->move_speed;
+    update_pos(player, new, map);
 }
 
 /* checks if any relevant keys were pressed

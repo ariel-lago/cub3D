@@ -50,3 +50,13 @@ void	print_start_stats(t_game *game)
         (int)game->player.dir.x, (int)game->player.dir.y, game->map.player_dir);
     printf("FOV: %.1f°, rad %.2f\n", game->player.fov, game->player.fov * PI / 180.0);
 }
+
+void	debug_textures(t_game *game, int i)
+{
+		printf("\n=== TEXTURE %d ===\n%p (width: %d, height: %d, path: %s)\n", 
+			i, 
+			game->wall[i].img,
+			game->wall[i].width,
+			game->wall[i].height,
+			game->map.walls[i]);
+}

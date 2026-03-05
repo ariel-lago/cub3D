@@ -46,6 +46,14 @@
 
 # include "cub3d.h"
 
+typedef enum e_direction
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+}	t_direction;
+
 typedef struct s_key
 {
 	bool	pressed[256];
@@ -62,15 +70,9 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		height;
+	int		width;
 }	t_img;
-
-typedef struct	s_textures
-{
-	t_img	north;
-	t_img	south;
-	t_img	west;
-	t_img	east;
-}	t_textures;
 
 typedef struct s_win
 {
@@ -123,8 +125,8 @@ typedef struct s_game
 	t_map		map;
 	t_key		keys;
 	t_img		canvas;
+	t_img		wall[4];
 	t_player	player;
-	t_textures	textures;
 }	t_game;
 
 #endif
