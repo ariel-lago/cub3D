@@ -18,7 +18,7 @@
 	int			map_x;
 	int			map_y;
 	t_vector	dist;
-	t_vector	first_dist;
+	t_vector	cross_dist;
 	int			step_x;
 	int			step_y;
 	t_vector	raydir;
@@ -59,22 +59,22 @@ static void	init_dda(t_game *game, t_ray *ray)
 	if (ray->raydir.x < 0)
 	{
 		ray->step_x = -1;
-		ray->first_dist.x = (game->player.pos.x - ray->map_x) * ray->dist.x;
+		ray->cross_dist.x = (game->player.pos.x - ray->map_x) * ray->dist.x;
 	}
 	else
 	{
-		ray->first_dist.x = (ray->map_x + 1.0 - game->player.pos.x) * ray->dist.x;
+		ray->cross_dist.x = (ray->map_x + 1.0 - game->player.pos.x) * ray->dist.x;
 		ray->step_x = 1;
 	}
 	if (ray->raydir.y < 0)
 	{
 		ray->step_y = -1;
-		ray->first_dist.y = (game->player.pos.y - ray->map_y) * ray->dist.y;
+		ray->cross_dist.y = (game->player.pos.y - ray->map_y) * ray->dist.y;
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->first_dist.y = (ray->map_y + 1.0 - game->player.pos.y) * ray->dist.y;
+		ray->cross_dist.y = (ray->map_y + 1.0 - game->player.pos.y) * ray->dist.y;
 	}
 	dda_loop(game, ray);
 }
@@ -90,16 +90,16 @@ static void	dda_loop(t_game *game, t_ray *ray)
 {
 	while (1)
 	{
-		if (ray->first_dist.x < ray->first_dist.y)
+		if (ray->cross_dist.x < ray->cross_dist.y)
 		{
 			ray->map.x += ray->step_x;
-			ray->first_dist.x += ray->dist.x;
+			ray->cross_dist.x += ray->dist.x;
 			ray->wall_type = VERTICAL;
 		}
 		else
 		{
 			ray->map.y += ray->step_y;
-			ray->first_dist.y += ray->dist.y;
+			ray->cross_dist.y += ray->dist.y;
 			ray->wall_type = HORIZONTAL;
 		}
 		if (game->map.map[ray->map_y][ray->map_x] == '1')
@@ -119,11 +119,11 @@ static void	get_wall_size(t_ray *ray, t_game *game)
 {
 	if (ray->wall_type == VERTICAL)
 	{
-		ray->line_height = (int)WIN_HEIGHT / (ray->first_dist.x - ray->dist.x);
+		ray->line_height = (int)WIN_HEIGHT / (ray->cross_dist.x - ray->dist.x);
 	}
 	else
 	{
-		ray->line_height = (int)WIN_HEIGHT / (ray->fist_dist.y - ray->dist.y);
+		ray->line_height = (int)WIN_HEIGHT / (ray->cross_dist.y - ray->dist.y);
 	}
 	ray->draw_start = WIN_HEIGHT / 2 - ray->line_height / 2;
 	ray->draw_end = WIN_HEIGHT / 2 + ray->line_height / 2;	

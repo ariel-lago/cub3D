@@ -109,7 +109,7 @@ typedef struct s_ray
 	int			map_x;
 	int			map_y;
 	t_vector	dist;
-	t_vector	first_dist;
+	t_vector	cross_dist;
 	int			step_x;
 	int			step_y;
 	t_vector	raydir;
