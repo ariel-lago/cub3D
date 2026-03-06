@@ -112,10 +112,10 @@ void	draw_column(t_game *game, int x)
 	int	color;
 
 	y = game->ray.draw_start;
-	if (game->ray.wall_type == VERTICAL)
-		color = 0xAAAAAA;
+	if (game->ray.wall_type == HORIZONTAL)
+		color = 0xDF66FF;
 	else
-		color = 0x666666;
+		color = 0xFF66DF;
 	while (y <= game->ray.draw_end)
 	{
 		put_pixel(&game->canvas, x, y, color);
