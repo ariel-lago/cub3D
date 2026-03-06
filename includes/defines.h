@@ -36,6 +36,9 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
+#define	VERTICAL 0
+#define HORIZONTAL 1
+
 # define PI 3.14159265358979323846
 /*
 # define EVENT_MOUSE_PRESS 4

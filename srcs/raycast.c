@@ -94,20 +94,43 @@ static void	dda_loop(t_game *game, t_ray *ray)
 		{
 			ray->map.x += ray->step_x;
 			ray->first_dist.x += ray->dist.x;
-			ray->wall_type = 0;
+			ray->wall_type = VERTICAL;
 		}
 		else
 		{
 			ray->map.y += ray->step_y;
 			ray->first_dist.y += ray->dist.y;
-			ray->wall_type = 1;
+			ray->wall_type = HORIZONTAL;
 		}
 		if (game->map.map[ray->map_y][ray->map_x] == '1')
 		{
-			get_wall_size(ray);
+			get_wall_size(ray, game);
 			break ;	
 		}
 	}
+}
+
+/*
+calculates the distance from the camera plane to the wall
+sets the size of the wall that will be drawn
+sets the draw start and end so the line is in the middle of the horizon.
+*/
+static void	get_wall_size(t_ray *ray, t_game *game)
+{
+	if (ray->wall_type == VERTICAL)
+	{
+		ray->line_height = (int)WIN_HEIGHT / (ray->first_dist.x - ray->dist.x);
+	}
+	else
+	{
+		ray->line_height = (int)WIN_HEIGHT / (ray->fist_dist.y - ray->dist.y);
+	}
+	ray->draw_start = WIN_HEIGHT / 2 - ray->line_height / 2;
+	ray->draw_end = WIN_HEIGHT / 2 + ray->line_height / 2;	
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	if (ray->draw_end > WIN_HEIGHT)
+		ray->draw_end = WIN_HEIGHT;
 }
 
 /*
