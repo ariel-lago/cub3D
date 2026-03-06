@@ -69,10 +69,8 @@ static void	dda_loop(t_game *game, t_ray *ray)
 /*
 Calculates the distance the ray needs to travel to cross a square in x and y.
 Sets the map tile where the player is(the pos but as an int so we just have the tile, not the pos in it);
-Calculates distance from first square to the next crossing (since player is in center of square)
+Calculates distance from the tile to the next considering the direction of the ray and the position in the tile.
 sets stepx and y so we know whether it has to move in one or another direction in the axis (if raydir is positive it will be +1 andif negative -1)
-Calculates the fist distance from the player position to the end of the tile:
-for this we see how far the player is from the tile wall and multiply it by the full distance.
 */
 static void	init_dda(t_game *game, t_ray *ray)
 {
