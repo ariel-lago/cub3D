@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 19:50:57 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/06 18:09:27 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/09 13:11:59 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static void	init_dda(t_game *game, t_ray *ray)
 
 /*
 draws a column of wall size for each ray casted
+-> NEED TO EDIT TO DRAW TEXTURE INSTEAD** REA
 */
 void	draw_column(t_game *game, int x)
 {
