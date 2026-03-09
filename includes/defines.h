@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/27 15:21:07 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/09 12:08:54 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define WIN_HEIGHT 600
 
 # define PI 3.14159265358979323846
+# define DEG_TO_RAD(deg) ((deg) * PI / 180.0)
+
 /*
 # define EVENT_MOUSE_PRESS 4
 # define EVENT_MOUSE_RELEASE 5

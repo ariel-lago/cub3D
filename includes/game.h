@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/27 15:30:11 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/09 12:39:22 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 int     key_hook(int keycode, t_game *game);
 int     key_release(int keycode, t_game *game);
 void	render(t_game *game);
-void    create_canvas(t_game *game);
+void    render_2d_map(t_game *game);
+int     create_canvas(t_game *game);
 void    draw_window(t_game *game);
 void    put_pixel(t_img *img, int x, int y, int color);
 void    init_player(t_game *game);

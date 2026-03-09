@@ -6,12 +6,16 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:53:16 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/27 15:53:00 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/09 10:53:27 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*  Updates a given position
+    Checks if the new position is out of bounds
+    or blocked by walls, if not = move
+*/
 static void update_pos(t_player *player, t_vector new, t_map *map)
 {
     if (new.x < 0 || new.x >= map->map_width ||
@@ -22,6 +26,11 @@ static void update_pos(t_player *player, t_vector new, t_map *map)
     player->pos.y = new.y;
 }
 
+/*  Moves the player forward relative to camera direction
+    Uses direction plane
+    multiplied by fields per frame (move_speed)
+    to calculate the new position.
+*/
 static void    go_straight(t_player *player, t_map *map)
 {
     t_vector    new;
@@ -31,6 +40,11 @@ static void    go_straight(t_player *player, t_map *map)
     update_pos(player, new, map);
 }
 
+/*  Moves the player backwards relative to camera direction
+    Uses -direction plane
+    multiplied by fields per frame (move_speed)
+    to calculate the new position.
+*/
 static void    go_back(t_player *player, t_map *map)
 {
     t_vector    new;
@@ -40,6 +54,11 @@ static void    go_back(t_player *player, t_map *map)
     update_pos(player, new, map);
 }
 
+/*  Moves the player left relative to camera direction
+    Uses -perpendicular plane (90° to the right)
+    multiplied by fields per frame (move_speed)
+    to calculate the new position.
+*/
 static void    go_left(t_player *player, t_map *map)
 {
     t_vector    new;
@@ -49,6 +68,11 @@ static void    go_left(t_player *player, t_map *map)
     update_pos(player, new, map);
 }
 
+/*  Moves the player right relative to camera direction
+    Uses perpendicular plane (90° to the right)
+    multiplied by fields per frame (move_speed)
+    to calculate the new position.
+*/
 static void    go_right(t_player *player, t_map *map)
 {
     t_vector    new;

@@ -25,7 +25,8 @@ SRCS = srcs/main.c \
 	   srcs/move_player.c \
 	   srcs/player_view.c \
 	   srcs/textures.c \
-	   srcs/debug.c
+	   srcs/debug.c \
+	   srcs/minimap.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
