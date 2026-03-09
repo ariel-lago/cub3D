@@ -1,0 +1,138 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/09 11:54:36 by rbestman          #+#    #+#             */
+/*   Updated: 2026/03/09 12:37:30 by rbestman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+// 2D Map values
+#define SIZE 	8
+#define WALL	0x9999FF
+#define FLOOR	0xFF99FF
+#define PLAYER	0xFF6666
+#define EMPTY	0x66F99F
+#define LINE	0x66F99F
+
+/*  Draws a map tile as a colored SIZE*SIZE square.
+	Converts grid position (col, row) to pixel coordinates,
+	fills it with a given color pixel by pixel.
+*/
+static void	draw_map_tile(t_game *game, int col, int row, int color)
+{
+	int	x;
+	int	y;
+	int	screen_y;
+	int	screen_x;
+
+	y = 0;
+	while (y < SIZE)
+	{
+		x = 0;
+		while (x < SIZE)
+		{
+			screen_x = col * SIZE + x;
+			screen_y = row * SIZE + y;
+			put_pixel(&game->canvas, screen_x, screen_y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+/*  Checks if the grid cell directly in front of player
+	is within map boundaries, prevents out-of-bound rendering.
+*/
+static int	within_bounds(t_game *game)
+{
+	t_vector	ahead;
+
+	ahead.x = (int)(game->player.pos.x + game->player.dir.x);
+	ahead.y = (int)(game->player.pos.y + game->player.dir.y);
+
+	if (ahead.x >= 0 && ahead.x < game->map.map_width &&
+		ahead.y >= 0 && ahead.y < game->map.map_height)
+		return (true);
+	return (false);
+}
+
+/*  Draws a line of dots in a given direction from center point.
+	Gets the players direction vector from rotate function
+	and extends it by 10 dots to create a line.
+*/
+static void	draw_line(t_game *game, t_vector center, double angle)
+{
+	t_vector	dot;
+	t_vector	edge;
+	int	i;
+
+	edge = rotate_vector(game->player.dir, angle);
+	i = 1;
+    while (i++ <= 10)
+    {
+        dot.x = center.x + (int)(edge.x * i);
+        dot.y = center.y + (int)(edge.y * i);
+        if (within_bounds(game))
+            put_pixel(&game->canvas, dot.x, dot.y, LINE);
+    }
+}
+
+/*  Draws the player's direction and FOV borders on minimap.
+	Converts player's grid position to pixel coordinates,
+	then draws lines at 0, left and right half_fov angles.
+*/
+static void	draw_dir_2d(t_game *game)
+{
+	t_vector	center;
+	double		half_fov;
+
+	center.x = (int)game->player.pos.x * SIZE + SIZE/2;
+	center.y = (int)game->player.pos.y * SIZE + SIZE/2;
+	half_fov =  DEG_TO_RAD(game->player.fov) / 2.0;
+	draw_line(game, center, 0);
+	draw_line(game, center, half_fov);
+	draw_line(game, center, -half_fov);
+}
+
+/*  Renders a top-down 2D minimap
+	Iterates through map grid: draws walls, floors, empty spaces
+	and overlays player position and view direction.
+*/
+void	render_2d_map(t_game *game)
+{
+	int		x;
+	int		y;
+	char	c;
+	int		color;
+
+	y = 0;
+	while (y < game->map.map_height)
+	{
+		x = 0;
+		while (x < game->map.map_width)
+		{
+			if (x == (int)game->player.pos.x && y == (int)game->player.pos.y)
+				color = PLAYER;
+			else
+			{
+				c = game->map.map[y][x];
+				if (c == '1')
+					color = WALL;
+				else if (c == '0')
+					color = FLOOR;
+				else
+					color = EMPTY;
+			}
+			draw_map_tile(game, x, y, color);
+			x++;
+		}
+		y++;
+	}
+	draw_dir_2d(game);
+}

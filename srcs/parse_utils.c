@@ -26,7 +26,7 @@ int get_player_start(t_map *map)
         col = 0;
         while (col < map->map_width)
         {
-            c = map->map[row][col]
+            c = map->map[row][col];
             if (c == 'N' || c == 'S' || c = 'E' || c == 'W')
             {
                 map->player_x = col;

@@ -3,89 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:48:21 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/24 17:06:25 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/09 12:42:33 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define SIZE 	8
-#define WALL	0x9999FF
-#define FLOOR	0xFF99FF
-#define PLAYER	0xFF6666
-#define EMPTY	0x66F99F
-
-void create_canvas(t_game *game)
+/* Fills pixel at (x, y) with color
+    Offset = (y * bytes per row) + (x * bytes per pixel)
+    Added to image buffer start to locate pixel,
+    writes all 4 bytes to fill with color
+    (works w bpp = 32)
+*/
+void put_pixel(t_img *img, int x, int y, int color)
 {
+    char *pixel_data;
+
+    pixel_data = img->addr + (y * img->line_len + x * (img->bpp / 8));
+    *(unsigned int*)pixel_data = color;
+}
+
+/* Fills window with (top)half ceiling, (bottom)half floor
+    Iterates through every pixel row by row, column by column
+    Uses WIN_HEIGHT/2 as dividing line between colors.
+*/
+void    draw_window(t_game *game)
+{
+    int x;
+    int y;
+
+    y = 0;
+    while (y < WIN_HEIGHT)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+        {
+            if (y < WIN_HEIGHT / 2)
+                put_pixel(&game->canvas, x, y, game->map.ceiling_color);
+            else
+                put_pixel(&game->canvas, x, y, game->map.floor_color);
+            x++;
+        }
+        y++;
+    }
+}
+
+/*  (Re)Creates main drawing buffer (canvas) calling
+	- mlx_destroy_image():
+		 frees existing canvas (XShm Memory).
+	- mlx_new_image():
+		 gives empty image memory buffer 
+		 based on window dimensions.
+	- mlx_get_data_addr():
+		Provides pixel access for texture mapping
+        by extracting & copying address values 
+        from t_img struct (filled by xpm_new_image()).
+*/
+int create_canvas(t_game *game)
+{
+	if (game->canvas.img)
+		mlx_destroy_image(game->window.mlx, game->canvas.img);
 	game->canvas.img = mlx_new_image(game->window.mlx, WIN_WIDTH, WIN_HEIGHT);
-    game->canvas.addr = mlx_get_data_addr(game->canvas.img,
+    if (!game->canvas.img)
+		return (FAILURE);
+	game->canvas.addr = mlx_get_data_addr(game->canvas.img,
                                           &game->canvas.bpp,
                                           &game->canvas.line_len,
                                           &game->canvas.endian);
+	return (SUCCESS);
 }
 
+/*	Main rendering function called each frame.
+	Uses static variables to track player stats (pos, dir, fov)
+	Only when something changed:
+	1. recreates empty canvas, draws 3D view, overlays 2D minimap
+	2. calls mlx_put_image_to_window():
+		Transfers the image buffer to the visible window,
+		telling the X Server to put it at top-left corner (0, 0).
+		-> uses XShm to avoid copying/passing memory data.
+*/
 void	render(t_game *game)
 {
-	create_canvas(game);
-	draw_window(game);
-	render_2d_map(game);
-	mlx_put_image_to_window(game->window.mlx, game->window.win, 
-                           game->canvas.img, 0, 0);
-}
+	static t_vector	last_pos;
+	static t_vector	last_dir;
+	static double	last_fov;
 
-static void	pixel(t_game *game, int col, int row, int color)
-{
-	int	x;
-	int	y;
-	int	screen_y;
-	int	screen_x;
-
-	y = 0;
-	while (y < SIZE)
+	if (last_pos.x != game->player.pos.x || last_pos.y != game->player.pos.y ||
+		last_dir.x != game->player.dir.x || last_dir.y != game->player.dir.y ||
+		last_fov != game->player.fov)
 	{
-		x = 0;
-		while (x < SIZE)
-		{
-			screen_x = col * SIZE + x;
-			screen_y = row * SIZE + y;
-			put_pixel(&game->canvas, screen_x, screen_y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	render_2d_map(t_game *game)
-{
-	int		x;
-	int		y;
-	char	c;
-	int		color;
-
-	y = 0;
-	while (y < game->map.map_height)
-	{
-		x = 0;
-		while (x < game->map.map_width)
-		{
-			if (x == game->map.player_x && y == game->map.player_y)
-				color = PLAYER;
-			else
-			{
-				c = game->map.map[y][x];
-				if (c == '1')
-					color = WALL;
-				else if (c == '0')
-					color = FLOOR;
-				else
-					color = EMPTY;
-			}
-			pixel(game, x, y, color);
-			x++;
-		}
-		y++;
+		if (create_canvas(game) == FAILURE)
+			error("MLX failed to create canvas", 0);
+		draw_window(game);
+		render_2d_map(game);
+		cast_rays(game);
+		mlx_put_image_to_window(game->window.mlx, game->window.win, 
+        	                   game->canvas.img, 0, 0);
+		last_pos.x = game->player.pos.x;
+		last_pos.y = game->player.pos.y;
+		last_dir.x = game->player.dir.x;
+		last_dir.y = game->player.dir.y;
 	}
 }

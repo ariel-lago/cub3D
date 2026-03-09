@@ -15,12 +15,9 @@
 
 #include "cub3d.h"
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-
 //void put_pixel(t_img *img, int x, int y, int color);
 //void draw_window(t_game *game);
-void	init_window(t_win *window);
-int	close_window(t_win *window);
+int	init_window(t_win *window);
+int	close_window(t_game *game);
 
 #endif
