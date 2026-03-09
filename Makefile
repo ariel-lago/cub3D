@@ -3,63 +3,92 @@ NAME = cub3d
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft -I./minilibx-linux -g
+CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft -I./minilibx-linux
+
+
+# Directories
+SRC_DIR = srcs
+OBJ_DIR = obj
+INC_DIR = includes
+LIBFT_DIR = ./libft
+MLX_DIR = ./minilibx-linux
+
+# COLORS
+GREEN	= \033[0;32m
+BLUE	= \033[0;36m
+RESET	= \033[0m
 
 # LIBFT
-LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # MLX
-MLX_DIR = ./minilibx-linux
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-# Source files - LIST YOUR .c FILES HERE
-SRCS = srcs/main.c \
-       srcs/window.c \
-       srcs/hooks.c \
-       srcs/parse.c \
-       srcs/utils.c \
-	   srcs/map.c \
-	   srcs/render.c \
-	   srcs/player.c \
-	   srcs/move_player.c \
-	   srcs/player_view.c \
-	   srcs/textures.c \
-	   srcs/debug.c \
-	   srcs/minimap.c
+#INC
+INC_FILES	= cub3d.h defines.h game.h parse.h utils.h window.h
+INCS		= $(addprefix $(INC_DIR)/, $(INC_FILES))
+
+# Source files
+SRC_FILES = main.c \
+	window.c \
+	hooks.c \
+	parse.c \
+	utils.c \
+	map.c \
+	render.c \
+	player.c \
+	move_player.c \
+	player_view.c \
+	textures.c \
+	debug.c \
+	minimap.c \
+	raycast.c
+	
+SRCS	= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 # Object files
-OBJS = $(SRCS:.c=.o)
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 # Default target
 all: $(NAME)
 
 # Compile Libft first
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	@echo "$(BLUE)Building Libft$(RESET)"
+	@make -C $(LIBFT_DIR) > /dev/null
 
-# Compile .c files to .o files
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Compile MLX (phony target)
+mlx:
+	@echo "$(BLUE)Building MLX$(RESET)"
+	@make -C $(MLX_DIR) > /dev/null
 
 # Link the program
-$(NAME): $(LIBFT) $(OBJS)
-	@make -C $(MLX_DIR)
-	$(CC) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
+$(NAME): $(LIBFT) $(OBJS) mlx
+	@echo "$(BLUE)Linking $(NAME)$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
+	@echo "$(GREEN)$(NAME) created successfully!$(RESET)"
+
+# Compile .c files to .o files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCS)
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 
 # Clean object files
 clean:
-	rm -f $(OBJS)
-	@make -C $(MLX_DIR) clean
-	@make -C $(LIBFT_DIR) clean
+	@echo "$(BLUE)Cleaning Objects$(RESET)"
+	@rm -rf $(OBJ_DIR)
+	@make clean -C $(MLX_DIR) > /dev/null
+	@make clean -C $(LIBFT_DIR) > /dev/null
+	@echo "$(GREEN)Successfully cleaned!$(RESET)"
 
 # Clean everything
 fclean: clean
-	rm -f $(NAME)
-	@make -C $(MLX_DIR) clean
-	@make -C $(LIBFT_DIR) fclean
-
+	@echo "$(BLUE)Cleaning Executables$(RESET)"
+	@rm -f $(NAME) > /dev/null
+	@make fclean -C $(LIBFT_DIR) > /dev/null
+	@echo "$(GREEN)Successfully cleaned!$(RESET)"
+	
 # Recompile
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re mlx

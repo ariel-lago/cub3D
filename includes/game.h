@@ -36,4 +36,8 @@ void    print_start_stats(t_game *game);
 void    print_end_stats(t_game *game);
 void	debug_textures(t_game *game, int i);
 
+int	    game_loop(t_game *game);
+t_vector rotate_vector(t_vector vector, double angle);
+void    cast_rays(t_game *game);
+
 #endif

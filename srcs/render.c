@@ -99,6 +99,7 @@ void	render(t_game *game)
 			error("MLX failed to create canvas", 0);
 		draw_window(game);
 		render_2d_map(game);
+		cast_rays(game);
 		mlx_put_image_to_window(game->window.mlx, game->window.win, 
         	                   game->canvas.img, 0, 0);
 		last_pos.x = game->player.pos.x;

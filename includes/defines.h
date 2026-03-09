@@ -33,10 +33,11 @@
 # define EVENT_KEY_PRESS 2
 # define EVENT_KEY_RELEASE 3
 
-
-
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
+
+#define	VERTICAL 0
+#define HORIZONTAL 1
 
 # define PI 3.14159265358979323846
 # define DEG_TO_RAD(deg) ((deg) * PI / 180.0)
@@ -89,16 +90,16 @@ typedef struct s_vector
 {
 	double	x;
 	double	y;
-}	t_vector ;
+}	t_vector;
 
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;
-	double	move_speed;
-	double	rot_speed;
-	double	fov;
+	double		move_speed;
+	double		rot_speed;
+	double		fov;
 }	t_player;
 
 typedef struct s_rgb
@@ -121,6 +122,23 @@ typedef struct s_map
 	int		ceiling_color;
 }	t_map;
 
+typedef struct s_ray
+{
+	double		cam;
+	int			map_x;
+	int			map_y;
+	t_vector	dist;
+	t_vector	cross_dist;
+	int			step_x;
+	int			step_y;
+	t_vector	raydir;
+	double		raypos;
+	int			wall_type;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+}	t_ray;
+
 typedef struct s_game
 {
 	t_win		window;
@@ -129,6 +147,7 @@ typedef struct s_game
 	t_img		canvas;
 	t_img		wall[4];
 	t_player	player;
+	t_ray		ray;
 }	t_game;
 
 #endif
