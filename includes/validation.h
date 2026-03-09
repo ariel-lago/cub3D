@@ -6,7 +6,7 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 18:49:11 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/02/25 18:51:05 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:35:38 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 # include "cub3d.h"
 
 int	is_valid_file(char *map_name);
+int	is_valid_map(int fd); 
 
 #endif
