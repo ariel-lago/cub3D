@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:48:21 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/09 12:42:33 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/09 14:32:13 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	render(t_game *game)
 		if (create_canvas(game) == FAILURE)
 			error("MLX failed to create canvas", 0);
 		draw_window(game);
-		render_2d_map(game);
 		cast_rays(game);
+		render_2d_map(game);
 		mlx_put_image_to_window(game->window.mlx, game->window.win, 
         	                   game->canvas.img, 0, 0);
 		last_pos.x = game->player.pos.x;

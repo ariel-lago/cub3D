@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/09 12:08:54 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:54:43 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef enum e_direction
 {
 	NORTH,
 	SOUTH,
-	EAST,
-	WEST
+	WEST,
+	EAST
 }	t_direction;
 
 typedef struct s_key
@@ -133,7 +133,7 @@ typedef struct s_ray
 	int			step_y;
 	t_vector	raydir;
 	double		raypos;
-	int			wall_type;
+	int			wall_dir;
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
