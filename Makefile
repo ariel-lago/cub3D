@@ -3,7 +3,7 @@ NAME = cub3d
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I./includes -I./libft -I./minilibx-linux
+CFLAGS = -Wall -Wextra -Werror -g -I./includes -I./libft -I./minilibx-mac
 
 
 # Directories
@@ -11,7 +11,7 @@ SRC_DIR = srcs
 OBJ_DIR = obj
 INC_DIR = includes
 LIBFT_DIR = ./libft
-MLX_DIR = ./minilibx-linux
+MLX_DIR = ./minilibx-mac
 
 # COLORS
 GREEN	= \033[0;32m
@@ -22,7 +22,8 @@ RESET	= \033[0m
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # MLX
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_LIB = $(MLX_DIR)/libmlx.a  # Changed from .dylib to .a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 #INC
 INC_FILES	= cub3d.h defines.h game.h parse.h utils.h window.h
@@ -63,9 +64,9 @@ mlx:
 	@make -C $(MLX_DIR) > /dev/null
 
 # Link the program
-$(NAME): $(LIBFT) $(OBJS) mlx
+$(NAME): $(LIBFT) $(OBJS)
 	@echo "$(BLUE)Linking $(NAME)$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
 	@echo "$(GREEN)$(NAME) created successfully!$(RESET)"
 
 # Compile .c files to .o files
@@ -91,4 +92,4 @@ fclean: clean
 # Recompile
 re: fclean all
 
-.PHONY: all clean fclean re mlx
+.PHONY: all clean fclean re
