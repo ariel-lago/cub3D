@@ -6,12 +6,18 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 17:56:17 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/10 14:29:33 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/10 16:56:52 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*  Gets color of pixel at (x, y)
+    Offset = (y * bytes per row) + (x * bytes per pixel)
+    Added to image buffer start to locate pixel,
+    returns the 4 bytes at the pixel's location
+    casted as int (works for bpp = 32)
+*/
 static int get_pixel_color(t_img *img, int x, int y)
 {
     char *pixel_data;
@@ -20,7 +26,11 @@ static int get_pixel_color(t_img *img, int x, int y)
     return (*(unsigned int*)pixel_data);
 }
 
-
+/* Maps a vertical stripe of a wall texture
+   Calculates texture pixel(col, row) by vertical
+   scaling and fractional hit position.
+   Returns the color of corresponding texture pixel. 
+*/
 int scale_texture(t_game *game, t_ray *ray, int screen_y)
 {
     t_img       *texture;
