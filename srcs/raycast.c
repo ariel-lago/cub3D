@@ -21,7 +21,7 @@ static void	get_wall_size(t_ray *ray)
 {
 	ray->line_height = (int)WIN_HEIGHT / ray->wall_dist;
 	ray->draw_start = WIN_HEIGHT / 2 - ray->line_height / 2;
-	ray->draw_end = WIN_HEIGHT / 2 + ray->line_height / 2;	
+	ray->draw_end = WIN_HEIGHT / 2 + ray->line_height / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	if (ray->draw_end > WIN_HEIGHT)
@@ -91,8 +91,8 @@ sets stepx and y so we know whether it has to move in one or another direction i
 */
 static void	init_dda(t_game *game, t_ray *ray)
 {
-	ray->dist.x = fabs(1.0/ray->raydir.x);
-	ray->dist.y = fabs(1.0/ray->raydir.y);
+	ray->dist.x = fabs(1.0 / ray->raydir.x);
+	ray->dist.y = fabs(1.0 / ray->raydir.y);
 	ray->map_x = (int)game->player.pos.x;
 	ray->map_y = (int)game->player.pos.y;
 	if (ray->raydir.x < 0)
@@ -102,7 +102,7 @@ static void	init_dda(t_game *game, t_ray *ray)
 	}
 	else
 	{
-		ray->cross_dist.x = (ray->map_x + 1.0 - game->player.pos.x) * ray->dist.x;
+		ray->cross_dist.x = (ray->map_x + 1 - game->player.pos.x) * ray->dist.x;
 		ray->step_x = 1;
 	}
 	if (ray->raydir.y < 0)
@@ -113,7 +113,7 @@ static void	init_dda(t_game *game, t_ray *ray)
 	else
 	{
 		ray->step_y = 1;
-		ray->cross_dist.y = (ray->map_y + 1.0 - game->player.pos.y) * ray->dist.y;
+		ray->cross_dist.y = (ray->map_y + 1 - game->player.pos.y) * ray->dist.y;
 	}
 	dda_loop(game, ray);
 }
@@ -135,8 +135,10 @@ void	cast_rays(t_game *game)
 	while (x < WIN_WIDTH)
 	{
 		game->ray.cam = 2 * x / (double)WIN_WIDTH - 1;
-		game->ray.raydir.x = game->player.dir.x + game->player.plane.x * game->ray.cam;
-		game->ray.raydir.y = game->player.dir.y + game->player.plane.y * game->ray.cam;
+		game->ray.raydir.x = 
+			game->player.dir.x + game->player.plane.x * game->ray.cam;
+		game->ray.raydir.y = 
+			game->player.dir.y + game->player.plane.y * game->ray.cam;
 		init_dda(game, &game->ray);
 		draw_column(game, x);
 		x++;

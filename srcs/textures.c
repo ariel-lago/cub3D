@@ -6,7 +6,11 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 17:56:17 by rbestman          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/03/11 17:25:02 by rbestman         ###   ########.fr       */
+=======
+/*   Updated: 2026/03/10 16:56:52 by rbestman         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +30,6 @@ static int get_pixel_color(t_img *img, int x, int y)
     return (*(unsigned int*)pixel_data);
 }
 
-/* Calculates which texture's column to draw from ray's hit position within a grid cell.
-    - For Vertical walls (EAST/WEST) -> uses varying Y-coordinate (x fixed)
-    - For Horizontal walls (NORTH/SOUTH) -> uses varying X-coordinate (y fixed)
-	The fractional part gives position within cell, 
-	texture_width scales it to texture column index.
-*/
 static double	get_scaled_col(t_game *game, t_ray *ray, t_img *texture)
 {
 	double	hit_point;

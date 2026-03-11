@@ -28,5 +28,6 @@
 # include "game.h"
 # include "parse.h"
 # include "utils.h"
+# include "validation.h"
 
 #endif

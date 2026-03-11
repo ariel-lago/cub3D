@@ -3,8 +3,7 @@ NAME = cub3d
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I./includes -I./libft -I./minilibx-linux
-
+CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft -I./minilibx-linux -g
 
 # Directories
 SRC_DIR = srcs
@@ -42,7 +41,8 @@ SRC_FILES = main.c \
 	textures.c \
 	debug.c \
 	minimap.c \
-	raycast.c
+	raycast.c \
+	validation.c
 	
 SRCS	= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
