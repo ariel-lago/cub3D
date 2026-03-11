@@ -53,6 +53,8 @@ static int	has_one_player(t_map *map)
 
 static int	flood_fill(char	**map, int y, int x, int height)
 {
+	if (!map)
+		return (FAILURE);
 	if (y < 0 || y >= height || x < 0 || x >= (int)ft_strlen(map[y]))
 		return (FAILURE);
 	if (map[y][x] == '1' || map[y][x] == 'X')
@@ -93,7 +95,8 @@ static int	is_surrounded(t_map *map)
 		}
 		y++;
 	}
-	return (SUCCESS);
+
+	return (TRUE);
 }
 
 int	is_valid_map(t_map *map)
