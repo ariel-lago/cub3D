@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/10 17:37:30 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:41:41 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_ray
 	int			map_y;
 	t_vector	dist;
 	t_vector	cross_dist;
+	double		wall_dist;
 	int			step_x;
 	int			step_y;
 	t_vector	raydir;
