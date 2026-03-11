@@ -18,5 +18,6 @@
 
 void	error(char *message, int p);
 void    free_array(char **arr);
+void    clean_map(t_map *map);
 
 #endif

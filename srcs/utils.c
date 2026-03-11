@@ -42,3 +42,22 @@ void free_array(char **arr)
     }
     free(arr);
 }
+
+void	clean_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+
+	if(!map || !map->map || !map->map_copy)
+		return ;
+	while (i < map->map_height)
+	{
+		free(map->map[i]);
+        free(map->map_copy[i++]);
+	}
+	free (map->map);
+    free(map->map_copy);
+	map->map = NULL;
+    map->map_copy = NULL;
+}

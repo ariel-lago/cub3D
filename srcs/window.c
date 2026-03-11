@@ -57,6 +57,7 @@ int	close_window(t_game *game)
     mlx_destroy_window(game->window.mlx, game->window.win);
     mlx_destroy_display(game->window.mlx);
     free(game->window.mlx);
+	clean_map(&game->map);
 	exit(0);
 	return (0);
 }

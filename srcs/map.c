@@ -67,6 +67,7 @@ int	get_map_size(char *map_name, int *height, int *width)
 /*
 It allocates space for the map string array of the number of lines in the map. 
 It then reads the .cub file and copies each line into a string in the array.
+It also copies another map copy for validation.
 */
 int	load_map(char *map_name, t_map *map)
 {
@@ -80,6 +81,9 @@ int	load_map(char *map_name, t_map *map)
 	map->map = ft_calloc(map->map_height + 1, sizeof(char *));
 	if (!map->map)
 		return (close(fd), error("Memory allocation failed", 1), FAILURE);
+	map->map_copy = ft_calloc(map->map_height + 1, sizeof(char *));
+	if (!map->map_copy)
+		return (close(fd), free(map->map), error("Memory allocation failed", 1), FAILURE);
 	line = get_next_line(fd);
 	while (line && !is_map(line))
 	{
@@ -89,7 +93,8 @@ int	load_map(char *map_name, t_map *map)
 	i = 0;
 	while (i < map->map_height && line && is_map(line))
 	{
-		map->map[i++] = ft_strdup(line);
+		map->map[i] = ft_strdup(line);
+		map->map_copy[i++] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
 	}
