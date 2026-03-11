@@ -112,6 +112,7 @@ typedef struct s_rgb
 typedef struct s_map
 {
 	char	**map;
+	char	**map_copy;
 	int		map_width;
 	int		map_height;
 	int		player_x;

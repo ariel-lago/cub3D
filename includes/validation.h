@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   validation.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 17:46:18 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/24 14:33:54 by rbestman         ###   ########.fr       */
+/*   Created: 2026/02/25 18:49:11 by alago-ga          #+#    #+#             */
+/*   Updated: 2026/03/09 19:16:52 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef VALIDATION_H
+# define VALIDATION_H
 
 # include "cub3d.h"
 
-
-void	error(char *message, int p);
-void    free_array(char **arr);
-void    clean_map(t_map *map);
+int	is_valid_file(char *map_name);
+int	is_valid_map(t_map	*map); 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/09 16:20:05 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/09 19:19:15 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static char	*get_info(char *line, int *identifiers)
 
 static int	is_valid_rgb(t_rgb color)
 {
-	return (color.r >= 0 && color.r <= 255 &&
-			color.g >= 0 && color.g <= 255 &&
+	return (color.r >= 0 && color.r <= 255 && \
+			color.g >= 0 && color.g <= 255 && \
 			color.b >= 0 && color.b <= 255);
 }
 
@@ -106,9 +106,9 @@ static int	find_identifiers(int fd, t_map *map)
 			map->walls[2] = get_info(&line[3], &identifiers);
 		else if (ft_strncmp(line,"EA ", 3) == 0 && !map->walls[EAST])
 			map->walls[3] = get_info(&line[3], &identifiers);
-		else if (ft_strncmp(line,"F ", 2) == 0 && !map->floor_color)
+		else if (ft_strncmp(line, "F ", 2) == 0 && !map->floor_color)
 			map->floor_color = parse_rgb(get_info(&line[2], &identifiers));
-		else if (ft_strncmp(line,"C ", 2) == 0 && !map->ceiling_color)
+		else if (ft_strncmp(line, "C ", 2) == 0 && !map->ceiling_color)
 			map->ceiling_color = parse_rgb(get_info(&line[2], &identifiers));
 		free(line);
 		line = get_next_line(fd);
@@ -168,12 +168,13 @@ int	parse(t_map *map, char *map_name)
 		return (close(fd), FAILURE);
 	if (load_map(map_name, map) == FAILURE)
 		return (close(fd), FAILURE);
+	if (is_valid_map(map) == FALSE)
+		return (close(fd), clean_map(map), FAILURE);
 	if (get_player_start(map) == FAILURE)
-		return (error("Player not found", 0), FAILURE);
+		return (close(fd), clean_map(map), error("Player not found", 1), FAILURE);
 	printf("player pos_x: %d\n", map->player_x);
 	printf("player pos_y:%d\n", map->player_y);
 	printf("player start direction: %c\n", map->player_dir);
 	close(fd);
 	return (SUCCESS);
 }
-
