@@ -6,16 +6,11 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 19:50:57 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/10 14:15:28 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:44:50 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/* DDA  - Digital Differential Analizer
-	DDA is an Algorithm that steps through a grip to find which wall hits a ray first.
-	
-*/
 
 /*
 calculates the distance from the camera plane to the wall
@@ -24,14 +19,7 @@ sets the draw start and end so the line is in the middle of the horizon.
 */
 static void	get_wall_size(t_ray *ray)
 {
-	if (ray->wall_dir == EAST || ray->wall_dir == WEST)
-	{
-		ray->line_height = (int)WIN_HEIGHT / (ray->cross_dist.x - ray->dist.x);
-	}
-	else
-	{
-		ray->line_height = (int)WIN_HEIGHT / (ray->cross_dist.y - ray->dist.y);
-	}
+	ray->line_height = (int)WIN_HEIGHT / ray->wall_dist;
 	ray->draw_start = WIN_HEIGHT / 2 - ray->line_height / 2;
 	ray->draw_end = WIN_HEIGHT / 2 + ray->line_height / 2;	
 	if (ray->draw_start < 0)
@@ -40,11 +28,32 @@ static void	get_wall_size(t_ray *ray)
 		ray->draw_end = WIN_HEIGHT;
 }
 
+/* Assigns which type of wall the current ray is being casted on.
+	depending on step direction.
+*/
+static int	get_wall_dir(t_ray *ray)
+{
+	if (ray->cross_dist.x < ray->cross_dist.y)
+	{
+		if (ray->step_x < 0)
+			return (EAST);
+		else
+			return (WEST);
+	}
+	else
+	{
+		if (ray->step_y < 0)
+			return (NORTH);
+		else
+			return (SOUTH);
+	}
+}
+
 /*
 Checks whether cross_dist .x or .y is smaller
 Moves to closest one in the direction of step
 adds dist.x or dist.y to first_dist .x .y
-sets the wall type to 0 for vertical and 1 for horizontal
+sets the wall dir to east/west for vertical and north/south for horizontal
 checks if its a wall (stops if it is or continues otherwise)
 */
 static void	dda_loop(t_game *game, t_ray *ray)
@@ -54,31 +63,27 @@ static void	dda_loop(t_game *game, t_ray *ray)
 		if (ray->cross_dist.x < ray->cross_dist.y)
 		{
 			ray->map_x += ray->step_x;
+			ray->wall_dist = ray->cross_dist.x;
+			ray->wall_dir = get_wall_dir(ray);
 			ray->cross_dist.x += ray->dist.x;
-			if (ray->step_x < 0)
-				ray->wall_dir = EAST;
-			else
-				ray->wall_dir = WEST;
 		}
 		else
 		{
 			ray->map_y += ray->step_y;
+			ray->wall_dist = ray->cross_dist.y;
+			ray->wall_dir = get_wall_dir(ray);
 			ray->cross_dist.y += ray->dist.y;
-			if (ray->step_y < 0)
-				ray->wall_dir = NORTH;
-			else
-				ray->wall_dir = SOUTH;
 		}
 		if (game->map.map[ray->map_y][ray->map_x] == '1')
 		{
 			get_wall_size(ray);
-			break ;	
+			break ;
 		}
 	}
 }
 
 /*
-Calculates the distance the ray needs to travel to cross a square in x and y.
+Calculates cross_dir =the distance the ray needs to travel to cross a square in x and y.
 Sets the map tile where the player is(the pos but as an int so we just have the tile, not the pos in it);
 Calculates distance from the tile to the next considering the direction of the ray and the position in the tile.
 sets stepx and y so we know whether it has to move in one or another direction in the axis 
@@ -111,23 +116,6 @@ static void	init_dda(t_game *game, t_ray *ray)
 		ray->cross_dist.y = (ray->map_y + 1.0 - game->player.pos.y) * ray->dist.y;
 	}
 	dda_loop(game, ray);
-}
-
-/*
-draws a column of wall size for each ray casted
-*/
-void	draw_column(t_game *game, int x)
-{
-	int	y;
-	int	color;
-
-	y = game->ray.draw_start;
-	while (y <= game->ray.draw_end)
-	{
-		color = scale_texture(game, &game->ray, y);
-		put_pixel(&game->canvas, x, y, color);
-		y++;
-	}
 }
 
 /*
