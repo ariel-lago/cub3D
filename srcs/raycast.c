@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 19:50:57 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/11 17:44:50 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:10:04 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ static void	dda_loop(t_game *game, t_ray *ray)
 }
 
 /*
-Calculates cross_dir =the distance the ray needs to travel to cross a square in x and y.
-Sets the map tile where the player is(the pos but as an int so we just have the tile, not the pos in it);
-Calculates distance from the tile to the next considering the direction of the ray and the position in the tile.
-sets stepx and y so we know whether it has to move in one or another direction in the axis 
+Calculates cross_dir, 
+the distance the ray needs to travel to cross a square in x and y.
+Sets the map tile where the player is
+(the pos but as an int so we just have the tile, not the pos in it);
+Calculates distance from the tile to the next considering
+the direction of the ray and the position in the tile.
+sets stepx and y so we know whether it has to move in one
+or another direction in the axis 
 (if raydir is positive it will be +1 and if negative -1)
 */
 static void	init_dda(t_game *game, t_ray *ray)

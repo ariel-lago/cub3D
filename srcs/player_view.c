@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 15:29:01 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/02 13:33:12 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:24:25 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,24 @@
         new_y = (swap * old_x) + (stay * old_y)
         -> stay = cos(angle), swap = sin(angle)
 */
-t_vector rotate_vector(t_vector vector, double angle)
+t_vector	rotate_vector(t_vector vector, double angle)
 {
-    t_vector result;
-    double old_x;
-    
-    old_x = vector.x;
-    
-    result.x = vector.x * cos(angle) - vector.y * sin(angle);
-    result.y = old_x * sin(angle) + vector.y * cos(angle);
-    
-    return (result);
+	t_vector	result;
+	double		old_x;
+
+	old_x = vector.x;
+	result.x = vector.x * cos(angle) - vector.y * sin(angle);
+	result.y = old_x * sin(angle) + vector.y * cos(angle);
+	return (result);
 }
 
 /* Rotates the player's direction and plane vectors
    Calls rotate function on both vectors to keep camera perpendicular
 */
-void rotate_player(t_player *player, double angle)
+void	rotate_player(t_player *player, double angle)
 {
-    player->dir = rotate_vector(player->dir, angle);
-    player->plane = rotate_vector(player->plane, angle);
+	player->dir = rotate_vector(player->dir, angle);
+	player->plane = rotate_vector(player->plane, angle);
 }
 
 /* Examples: 
@@ -150,17 +148,16 @@ void rotate_player(t_player *player, double angle)
         and scales it by the planes length to match FOV.
    Call this for changing/initializing FOV.
 */
-void    set_player_plane(t_game *game, double fov_degree)
+void	set_player_plane(t_game *game, double fov_degree)
 {
-    double  fov_rad;
-    double  plane_len;
+	double	fov_rad;
+	double	plane_len;
 
-    game->player.fov = fov_degree;
-    fov_rad = game->player.fov * PI / 180.0;
-    plane_len = tan(fov_rad/ 2.0);
-
-    game->player.plane.x = -game->player.dir.y * plane_len;
-    game->player.plane.y = game->player.dir.x * plane_len;
+	game->player.fov = fov_degree;
+	fov_rad = game->player.fov * PI / 180.0;
+	plane_len = tan(fov_rad / 2.0);
+	game->player.plane.x = -game->player.dir.y * plane_len;
+	game->player.plane.y = game->player.dir.x * plane_len;
 }
 
 /* 

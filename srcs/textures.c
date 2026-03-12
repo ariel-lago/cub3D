@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 17:56:17 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/11 17:25:02 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:28:17 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
     returns the 4 bytes at the pixel's location
     casted as int (works for bpp = 32)
 */
-static int get_pixel_color(t_img *img, int x, int y)
+static int	get_pixel_color(t_img *img, int x, int y)
 {
-    char *pixel_data;
+	char	*pixel_data;
 
-    pixel_data = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    return (*(unsigned int*)pixel_data);
+	pixel_data = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	return (*(unsigned int *)pixel_data);
 }
 
 static double	get_scaled_col(t_game *game, t_ray *ray, t_img *texture)
@@ -45,7 +45,7 @@ static double	get_scaled_col(t_game *game, t_ray *ray, t_img *texture)
 */
 void	draw_column(t_game *game, int x)
 {
-	int		y;
+	int			y;
 	double		step;
 	t_vector	scaled;
 	t_img		*texture;
@@ -57,7 +57,8 @@ void	draw_column(t_game *game, int x)
 	scaled.y = 0.0;
 	while (y <= game->ray.draw_end)
 	{
-		put_pixel(&game->canvas, x, y, get_pixel_color(texture, (int)scaled.x, (int)scaled.y));
+		put_pixel(&game->canvas, x, y, 
+			get_pixel_color(texture, (int)scaled.x, (int)scaled.y));
 		scaled.y += step;
 		y++;
 	}
@@ -74,16 +75,15 @@ void	draw_column(t_game *game, int x)
         from t_img struct (filled by xpm_file_to_image())
     Returns SUCCESS if texture loads, FAILURE otherwise.
 */
-int load_texture(t_game *game, t_img *texture, char *filepath)
+int	load_texture(t_game *game, t_img *texture, char *filepath)
 {
-    texture->img = mlx_xpm_file_to_image(game->window.mlx, filepath,
-                                &texture->width, &texture->height);
-
-    if (!texture->img)
-        return (FAILURE);
-    texture->addr = mlx_get_data_addr(texture->img, &texture->bpp,
-                                &texture->line_len, &texture->endian);
-    if (!texture->addr)
-        return (FAILURE);
-    return (SUCCESS);
+	texture->img = mlx_xpm_file_to_image(game->window.mlx, filepath,
+			&texture->width, &texture->height);
+	if (!texture->img)
+		return (FAILURE);
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp,
+			&texture->line_len, &texture->endian);
+	if (!texture->addr)
+		return (FAILURE);
+	return (SUCCESS);
 }

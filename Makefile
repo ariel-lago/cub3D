@@ -40,10 +40,10 @@ SRC_FILES = main.c \
 	move_player.c \
 	player_view.c \
 	textures.c \
-	debug.c \
 	minimap.c \
 	raycast.c \
-	validation.c
+	validation.c \
+	debug.c
 	
 SRCS	= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

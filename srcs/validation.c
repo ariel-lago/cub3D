@@ -6,7 +6,7 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 18:40:13 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/09 19:19:12 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:17:22 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	has_one_player(t_map *map)
 	int	x;
 	int	y;
 	int	player;
-	int line_len;
+	int	line_len;
 
 	y = 0;
 	player = 0;
@@ -100,10 +100,10 @@ static int	is_surrounded(t_map *map)
 
 int	is_valid_map(t_map *map)
 {
-    if (has_one_player(map) == FALSE)
-        return (error("Map needs one player", 0), FALSE);
-    if (is_surrounded(map) == FALSE)
-    	return (error("Map isn't surrounded by walls", 0), FALSE);
+	if (has_one_player(map) == FALSE)
+		return (error("Map needs one player", 0), FALSE);
+	if (is_surrounded(map) == FALSE)
+		return (error("Map isn't surrounded by walls", 0), FALSE);
 	else
 		return (TRUE);
 }

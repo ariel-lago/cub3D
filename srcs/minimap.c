@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 11:54:36 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/12 14:38:18 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 20:57:28 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ void	render_2d_map(t_game *game)
 		row_len = ft_strlen(game->map.map[row]);
 		while (col < row_len)
 		{
-			if (col == (int)game->player.pos.x && row == (int)game->player.pos.y)
+			if (col == (int)game->player.pos.x 
+				&& row == (int)game->player.pos.y)
 				color = PLAYER;
 			else
 			{
