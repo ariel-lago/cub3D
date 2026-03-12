@@ -35,7 +35,7 @@ static char	*get_info(char *line, int *identifiers)
 	if (ret[0] == '\0')
 	{
 		free(ret);
-		return (error("Identifier is missing information", 0), NULL);
+		return (NULL);
 	}
 	(*identifiers)++;
 	return (ret);
@@ -122,7 +122,7 @@ static int	find_identifiers(int fd, t_map *map)
 	}
 	free(line);
 	if (identifiers != 6)
-		return (error("Missing identifier", 0), FAILURE);
+		return (error("Missing information", 0), FAILURE);
 	return (SUCCESS);
 }
 
@@ -185,7 +185,7 @@ int	parse(t_map *map, char *map_name)
 	if (is_valid_map(map) == FALSE)
 		return (close(fd), clean_map(map), FAILURE);
 	if (get_player_start(map) == FAILURE)
-		return (close(fd), clean_map(map), error("Player not found", 1), FAILURE);
+		return (close(fd), clean_map(map), error("Player not found", 0), FAILURE);
 	printf("player pos_x: %d\n", map->player_x);
 	printf("player pos_y:%d\n", map->player_y);
 	printf("player start direction: %c\n", map->player_dir);

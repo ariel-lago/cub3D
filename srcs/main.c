@@ -30,7 +30,7 @@ int	init_game(t_game *game)
 	while (i < 4)
 	{
 		if (load_texture(game, &game->wall[i], game->map.walls[i]) == FAILURE)
-			return (error("Couldn't load wall texture", 1), FAILURE);
+			return (error("Couldn't load wall texture", 0), FAILURE);
 		debug_textures(game, i);
 		i++;
 	}
@@ -47,7 +47,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	ft_memset(&game, 0, sizeof(t_game));
 	if (parse(&game.map, argv[1]) == FAILURE)
-		return (error("Map parsing failed", 0), 1);
+		return (1);
 	if (init_game(&game) == FAILURE)
 		return (1);
 	mlx_hook(game.window.win, EVENT_KEY_PRESS, 1L << 0, key_hook, &game);

@@ -36,9 +36,9 @@ static int	get_wall_dir(t_ray *ray)
 	if (ray->cross_dist.x < ray->cross_dist.y)
 	{
 		if (ray->step_x < 0)
-			return (EAST);
-		else
 			return (WEST);
+		else
+			return (EAST);
 	}
 	else
 	{

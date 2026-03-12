@@ -1,5 +1,5 @@
 NO ./textures/wall/north.xpm
-EA ./textures/wall/east.xpm
+EA ./textures/wall/east.png
 SO ./textures/wall/south.xpm
 WE ./textures/wall/west.xpm
 
