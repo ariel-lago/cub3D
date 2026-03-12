@@ -1,0 +1,14 @@
+NO ./textures/wall/oklou.xpm
+WE ./textures/wall/west.xpm
+EA ./textures/wall/east.xpm
+SO ./textures/wall/dannyoklou.xpm
+WE ./textures/wall/oklou.xpm
+
+F 100,230,100
+C 165,190,240
+
+111111 1111
+111000100011
+  11000000N011
+  101100010001
+1111111111111

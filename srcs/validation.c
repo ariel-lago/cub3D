@@ -101,9 +101,9 @@ static int	is_surrounded(t_map *map)
 int	is_valid_map(t_map *map)
 {
     if (has_one_player(map) == FALSE)
-        return (FALSE);
+        return (error("Map needs one player", 0), FALSE);
     if (is_surrounded(map) == FALSE)
-    	return (FALSE);
+    	return (error("Map isn't surrounded by walls", 0), FALSE);
 	else
 		return (TRUE);
 }
