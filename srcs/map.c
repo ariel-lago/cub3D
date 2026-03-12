@@ -35,15 +35,11 @@ It adds one to the height for each line.
 It then calculates the length of the line.
 If its wider than the previous ones it sets the width value to this length.
 */
-int	get_map_size(char *map_name, int *height, int *width)
+int	get_map_size(int fd, int *height, int *width)
 {
 	char	*line;
-	int		fd;
 	int		len;
 
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-		return (error("Open() failed", 1), FAILURE);
 	line = get_next_line(fd);
 	while (line && !is_map(line))
 	{
@@ -60,8 +56,8 @@ int	get_map_size(char *map_name, int *height, int *width)
 		line = get_next_line(fd);
 	}
 	if (line)
-		return (free(line), close(fd), FAILURE);
-	return (close(fd), SUCCESS);
+		return (free(line), FAILURE);
+	return (SUCCESS);
 }
 
 /*

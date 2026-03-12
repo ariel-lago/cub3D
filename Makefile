@@ -21,6 +21,7 @@ RESET	= \033[0m
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # MLX
+MLX = $(MLX_DIR)/libmlx.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 #INC
@@ -57,13 +58,13 @@ $(LIBFT):
 	@echo "$(BLUE)Building Libft$(RESET)"
 	@make -C $(LIBFT_DIR) > /dev/null
 
-# Compile MLX (phony target)
-mlx:
+# Compile MLX
+$(MLX):
 	@echo "$(BLUE)Building MLX$(RESET)"
-	@make -C $(MLX_DIR) > /dev/null
+	@make -C $(MLX_DIR) > /dev/null 2>&1
 
 # Link the program
-$(NAME): $(LIBFT) $(OBJS) mlx
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@echo "$(BLUE)Linking $(NAME)$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
 	@echo "$(GREEN)$(NAME) created successfully!$(RESET)"

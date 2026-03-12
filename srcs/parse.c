@@ -178,7 +178,7 @@ int	parse(t_map *map, char *map_name)
 	ft_memset(map, 0, sizeof (t_map));
 	if (find_identifiers(fd, map) == FAILURE)
 		return (close(fd), FAILURE);
-	if (get_map_size(map_name, &map->map_height, &map->map_width) == FAILURE)
+	if (get_map_size(fd, &map->map_height, &map->map_width) == FAILURE)
 		return (close(fd), FAILURE);
 	if (load_map(map_name, map) == FAILURE)
 		return (close(fd), FAILURE);

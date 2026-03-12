@@ -23,6 +23,6 @@ int		get_player_start(t_map *map);
 //2d render
 void	render_2d_map(t_game *game);
 int		load_map(char *map_name, t_map *map);
-int		get_map_size(char *map_name, int *height, int *width);
+int		get_map_size(int fd, int *height, int *width);
 
 #endif
