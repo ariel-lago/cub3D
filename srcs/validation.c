@@ -95,7 +95,6 @@ static int	is_surrounded(t_map *map)
 		}
 		y++;
 	}
-
 	return (TRUE);
 }
 

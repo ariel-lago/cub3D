@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/10 13:54:43 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:25:28 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
-#define	VERTICAL 0
-#define HORIZONTAL 1
+# define VERTICAL 0
+# define HORIZONTAL 1
 
 # define PI 3.14159265358979323846
 # define DEG_TO_RAD(deg) ((deg) * PI / 180.0)

@@ -6,7 +6,7 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:07:08 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/09 18:46:02 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:35:05 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	get_map_size(char *map_name, int *height, int *width)
 	char	*line;
 	int		fd;
 	int		len;
-	
+
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		return (error("Open() failed", 1), FAILURE);
@@ -83,7 +83,8 @@ int	load_map(char *map_name, t_map *map)
 		return (close(fd), error("Memory allocation failed", 1), FAILURE);
 	map->map_copy = ft_calloc(map->map_height + 1, sizeof(char *));
 	if (!map->map_copy)
-		return (close(fd), free(map->map), error("Memory allocation failed", 1), FAILURE);
+		return (close(fd), free(map->map), 
+			error("Memory allocation failed", 1), FAILURE);
 	line = get_next_line(fd);
 	while (line && !is_map(line))
 	{

@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 11:54:36 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/09 12:37:30 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:33:35 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ static int	within_bounds(t_game *game)
 
 	ahead.x = (int)(game->player.pos.x + game->player.dir.x);
 	ahead.y = (int)(game->player.pos.y + game->player.dir.y);
-
-	if (ahead.x >= 0 && ahead.x < game->map.map_width &&
+	if (ahead.x >= 0 && ahead.x < game->map.map_width && \
 		ahead.y >= 0 && ahead.y < game->map.map_height)
 		return (true);
 	return (false);
@@ -70,17 +69,17 @@ static void	draw_line(t_game *game, t_vector center, double angle)
 {
 	t_vector	dot;
 	t_vector	edge;
-	int	i;
+	int			i;
 
 	edge = rotate_vector(game->player.dir, angle);
 	i = 1;
-    while (i++ <= 10)
-    {
-        dot.x = center.x + (int)(edge.x * i);
-        dot.y = center.y + (int)(edge.y * i);
-        if (within_bounds(game))
-            put_pixel(&game->canvas, dot.x, dot.y, LINE);
-    }
+	while (i++ <= 10)
+	{
+		dot.x = center.x + (int)(edge.x * i);
+		dot.y = center.y + (int)(edge.y * i);
+		if (within_bounds(game))
+			put_pixel(&game->canvas, dot.x, dot.y, LINE);
+	}
 }
 
 /*  Draws the player's direction and FOV borders on minimap.
@@ -92,9 +91,9 @@ static void	draw_dir_2d(t_game *game)
 	t_vector	center;
 	double		half_fov;
 
-	center.x = (int)game->player.pos.x * SIZE + SIZE/2;
-	center.y = (int)game->player.pos.y * SIZE + SIZE/2;
-	half_fov =  DEG_TO_RAD(game->player.fov) / 2.0;
+	center.x = (int)game->player.pos.x * SIZE + SIZE / 2;
+	center.y = (int)game->player.pos.y * SIZE + SIZE / 2;
+	half_fov = DEG_TO_RAD(game->player.fov) / 2.0;
 	draw_line(game, center, 0);
 	draw_line(game, center, half_fov);
 	draw_line(game, center, -half_fov);

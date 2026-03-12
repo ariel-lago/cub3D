@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/09 19:19:15 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:41:57 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 Gets sent the line with the identifier and returns its path/color values.
 Increases identifiers by one if it's found the info.
-(note: should I add an is space function or do we accept the subjet means a normal ' ' space?)
 */
 static char	*get_info(char *line, int *identifiers)
 {
@@ -56,37 +55,32 @@ int	rgb_to_int(t_rgb color)
     -> Green: shifted left by 8 bits  (into byte 1)
     -> Blue:  no shift                (into byte 0)
  */
-static int parse_rgb(char *rgb_str)
+static int	parse_rgb(char *rgb_str)
 {
-    char    **split;
+	char	**split;
 	t_rgb	rgb;
-    
-    if (!rgb_str)
-        return (-1);
-    
-    split = ft_split(rgb_str, ',');
-    if (!split || !split[0] || !split[1] || !split[2])
-    {
-        if (split)
-            free_array(split);
-        return (-1);
-    }
 
-    rgb.r = ft_atoi(split[0]);
-    rgb.g = ft_atoi(split[1]);
-    rgb.b = ft_atoi(split[2]);
-
-    free_array(split);
-
-    if (!is_valid_rgb(rgb))
-        return (-1);
-
-    return (rgb_to_int(rgb));
+	if (!rgb_str)
+		return (-1);
+	split = ft_split(rgb_str, ',');
+	if (!split || !split[0] || !split[1] || !split[2])
+	{
+		if (split)
+			free_array(split);
+		return (-1);
+	}
+	rgb.r = ft_atoi(split[0]);
+	rgb.g = ft_atoi(split[1]);
+	rgb.b = ft_atoi(split[2]);
+	free_array(split);
+	if (!is_valid_rgb(rgb))
+		return (-1);
+	return (rgb_to_int(rgb));
 }
 
 /*
 Reads the file line by line and searches for identifiers in each line. 
-If it finds aan identifier it sends it to get info so assign its value to the struct
+If it finds an identifier it sends it to get info so assign its value to the struct
 It counts the identifiers, if there's a missing identifier it returns failure. 
 */
 static int	find_identifiers(int fd, t_map *map)
