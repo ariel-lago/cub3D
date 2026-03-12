@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:03:36 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/09 12:42:30 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 14:11:39 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	init_window(t_win *window)
 int	close_window(t_game *game)
 {
     print_end_stats(game);
+	clean_textures(game);
     mlx_destroy_window(game->window.mlx, game->window.win);
     mlx_destroy_display(game->window.mlx);
     free(game->window.mlx);

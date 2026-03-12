@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbestman <rbestman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:43:23 by rbestman          #+#    #+#             */
-/*   Updated: 2026/02/23 17:46:01 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:03:35 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	error(char *message, int p)
         ft_putendl_fd(message, 2);
 }
 
-/* frees an array of char *strings */
-void free_array(char **arr)
+/* frees any array of fixed size */
+void free_array(void **arr, int size)
 {
     int i;
 
@@ -35,7 +35,7 @@ void free_array(char **arr)
         return;
     
     i = 0;
-    while (arr[i])
+    while (i < size)
     {
         free(arr[i]);
         i++;
@@ -43,21 +43,42 @@ void free_array(char **arr)
     free(arr);
 }
 
+void    clean_textures(t_game *game)
+{
+    int i;
+
+    i = 0;
+    while (i < 4)
+    {
+        if (game->wall[i].img)
+            mlx_destroy_image(game->window.mlx, game->wall[i].img);
+        i++;
+    }
+    if (game->canvas.img)
+        mlx_destroy_image(game->window.mlx, game->canvas.img);
+}
+
 void	clean_map(t_map *map)
 {
 	int	i;
 
-	i = 0;
-
-	if(!map || !map->map || !map->map_copy)
+	if(!map)
 		return ;
-	while (i < map->map_height)
-	{
-		free(map->map[i]);
-        free(map->map_copy[i++]);
-	}
-	free (map->map);
-    free(map->map_copy);
-	map->map = NULL;
-    map->map_copy = NULL;
+    i = 0;
+    while (i < 4)    
+    {
+        if (map->walls[i])
+            free(map->walls[i]);
+        i++;
+    }
+    if (map->map)
+    {
+        free_array((void **)map->map, map->map_height);
+        map->map = NULL;
+    }
+    if (map->map_copy)
+    {
+        free_array((void **)map->map_copy, map->map_height);
+        map->map_copy = NULL;
+    }
 }

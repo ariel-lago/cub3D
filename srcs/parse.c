@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/09 19:19:15 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/12 14:29:54 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int parse_rgb(char *rgb_str)
     if (!split || !split[0] || !split[1] || !split[2])
     {
         if (split)
-            free_array(split);
+            free_array((void **)split, 3);
         return (-1);
     }
 
@@ -76,7 +76,7 @@ static int parse_rgb(char *rgb_str)
     rgb.g = ft_atoi(split[1]);
     rgb.b = ft_atoi(split[2]);
 
-    free_array(split);
+    free_array((void **)split, 3);
 
     if (!is_valid_rgb(rgb))
         return (-1);
@@ -119,9 +119,15 @@ static int	find_identifiers(int fd, t_map *map)
 	return (SUCCESS);
 }
 
+/* changed to take row_len instead of map_width ->
+	map_width might is the longest row, so if current row is shorter,
+	we'd read past the end of the string (using map_width)
+	-> out of bound memory access. 
+*/
 int get_player_start(t_map *map)
 {
     int     row;
+	int		row_len;
     int     col;
     char    c;
 
@@ -131,7 +137,8 @@ int get_player_start(t_map *map)
     while (row < map->map_height)
     {
         col = 0;
-        while (col < map->map_width)
+		row_len = ft_strlen(map->map[row]);
+        while (col < row_len)
         {
             c = map->map[row][col];
             if (c == 'N' || c == 'S' || c =='E' || c == 'W')

@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 11:54:36 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/09 12:37:30 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 14:38:18 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 	Converts grid position (col, row) to pixel coordinates,
 	fills it with a given color pixel by pixel.
 */
-static void	draw_map_tile(t_game *game, int col, int row, int color)
+static void	draw_map_tile(t_game *game, int row, int col, int color)
 {
 	int	x;
 	int	y;
@@ -106,22 +106,24 @@ static void	draw_dir_2d(t_game *game)
 */
 void	render_2d_map(t_game *game)
 {
-	int		x;
-	int		y;
+	int		row;
+	int		col;
+	int		row_len;
 	char	c;
 	int		color;
 
-	y = 0;
-	while (y < game->map.map_height)
+	row = 0;
+	while (row < game->map.map_height)
 	{
-		x = 0;
-		while (x < game->map.map_width)
+		col = 0;
+		row_len = ft_strlen(game->map.map[row]);
+		while (col < row_len)
 		{
-			if (x == (int)game->player.pos.x && y == (int)game->player.pos.y)
+			if (col == (int)game->player.pos.x && row == (int)game->player.pos.y)
 				color = PLAYER;
 			else
 			{
-				c = game->map.map[y][x];
+				c = game->map.map[row][col];
 				if (c == '1')
 					color = WALL;
 				else if (c == '0')
@@ -129,10 +131,10 @@ void	render_2d_map(t_game *game)
 				else
 					color = EMPTY;
 			}
-			draw_map_tile(game, x, y, color);
-			x++;
+			draw_map_tile(game, row, col, color);
+			col++;
 		}
-		y++;
+		row++;
 	}
 	draw_dir_2d(game);
 }
