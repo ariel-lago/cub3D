@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/11 18:41:57 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:42:52 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,25 @@ static char	*get_info(char *line, int *identifiers)
 {
 	int		i;
 	char	*ret;
+	size_t	len;
 
 	i = 0;
 	while (line[i] == ' ')
 		i++;
 	ret = ft_strdup(&line[i]);
-	if (ret && (ret[ft_strlen(ret) - 1] == '\n'))
+	if (!ret)
+		return (NULL);
+	len = ft_strlen(ret);
+	if (ret && (ret[len - 1] == '\n'))
+		ret[len - 1] = '\0';
+
+	if (ret[0] == '\0')
 	{
-		ret[ft_strlen(ret) - 1] = '\0';
-		*identifiers = *identifiers + 1;
-		return (ret);
+		free(ret);
+		return (error("Identifier is missing information", 0), NULL);
 	}
-	return (error("Identifier is missing information", 0), NULL);
+	(*identifiers)++;
+	return (ret);
 }
 
 static int	is_valid_rgb(t_rgb color)
@@ -59,23 +66,29 @@ static int	parse_rgb(char *rgb_str)
 {
 	char	**split;
 	t_rgb	rgb;
+	
+    if (!rgb_str)
+        return (-1);
+    
+    split = ft_split(rgb_str, ',');
+    if (!split || !split[0] || !split[1] || !split[2])
+    {
+        if (split)
+            free_array((void **)split, 3);
+        return (-1);
+    }
 
-	if (!rgb_str)
-		return (-1);
-	split = ft_split(rgb_str, ',');
-	if (!split || !split[0] || !split[1] || !split[2])
-	{
-		if (split)
-			free_array(split);
-		return (-1);
-	}
-	rgb.r = ft_atoi(split[0]);
-	rgb.g = ft_atoi(split[1]);
-	rgb.b = ft_atoi(split[2]);
-	free_array(split);
-	if (!is_valid_rgb(rgb))
-		return (-1);
-	return (rgb_to_int(rgb));
+    rgb.r = ft_atoi(split[0]);
+    rgb.g = ft_atoi(split[1]);
+    rgb.b = ft_atoi(split[2]);
+
+    free_array((void **)split, 3);
+	free(rgb_str);
+
+    if (!is_valid_rgb(rgb))
+        return (-1);
+
+    return (rgb_to_int(rgb));
 }
 
 /*
@@ -113,9 +126,15 @@ static int	find_identifiers(int fd, t_map *map)
 	return (SUCCESS);
 }
 
+/* changed to take row_len instead of map_width ->
+	map_width might is the longest row, so if current row is shorter,
+	we'd read past the end of the string (using map_width)
+	-> out of bound memory access. 
+*/
 int get_player_start(t_map *map)
 {
     int     row;
+	int		row_len;
     int     col;
     char    c;
 
@@ -125,7 +144,8 @@ int get_player_start(t_map *map)
     while (row < map->map_height)
     {
         col = 0;
-        while (col < map->map_width)
+		row_len = ft_strlen(map->map[row]);
+        while (col < row_len)
         {
             c = map->map[row][col];
             if (c == 'N' || c == 'S' || c =='E' || c == 'W')

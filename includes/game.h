@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:08:33 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/11 18:27:45 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/11 19:04:47 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void		debug_textures(t_game *game, int i);
 int			game_loop(t_game *game);
 t_vector	rotate_vector(t_vector vector, double angle);
 void		cast_rays(t_game *game);
+void		draw_column(t_game *game, int x);
+
 
 #endif
