@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/12 14:29:54 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:42:52 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,25 @@ static char	*get_info(char *line, int *identifiers)
 {
 	int		i;
 	char	*ret;
+	size_t	len;
 
 	i = 0;
 	while (line[i] == ' ')
 		i++;
 	ret = ft_strdup(&line[i]);
-	if (ret && (ret[ft_strlen(ret) - 1] == '\n'))
+	if (!ret)
+		return (NULL);
+	len = ft_strlen(ret);
+	if (ret && (ret[len - 1] == '\n'))
+		ret[len - 1] = '\0';
+
+	if (ret[0] == '\0')
 	{
-		ret[ft_strlen(ret) - 1] = '\0';
-		*identifiers = *identifiers + 1;
-		return (ret);
+		free(ret);
+		return (error("Identifier is missing information", 0), NULL);
 	}
-	return (error("Identifier is missing information", 0), NULL);
+	(*identifiers)++;
+	return (ret);
 }
 
 static int	is_valid_rgb(t_rgb color)
@@ -77,6 +84,7 @@ static int parse_rgb(char *rgb_str)
     rgb.b = ft_atoi(split[2]);
 
     free_array((void **)split, 3);
+	free(rgb_str);
 
     if (!is_valid_rgb(rgb))
         return (-1);
