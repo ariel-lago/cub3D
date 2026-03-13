@@ -56,7 +56,11 @@ int	get_map_size(int fd, int *height, int *width)
 		line = get_next_line(fd);
 	}
 	if (line)
-		return (free(line), FAILURE);
+	{
+		free(line);
+		error("Invalid map", 0);
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 

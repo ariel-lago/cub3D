@@ -72,13 +72,13 @@ static int	parse_rgb(char *rgb_str)
 	if (!split || !split[0] || !split[1] || !split[2])
 	{
 		if (split)
-			free_array((void **)split, 3);
-		return (-1);
+			free_array((void **)split);
+		return (free(rgb_str), 1);
 	}
 	rgb.r = ft_atoi(split[0]);
 	rgb.g = ft_atoi(split[1]);
 	rgb.b = ft_atoi(split[2]);
-	free_array((void **)split, 3);
+	free_array((void **)split);
 	free(rgb_str);
 	if (!is_valid_rgb(rgb))
 		return (-1);

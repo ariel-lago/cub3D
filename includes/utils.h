@@ -16,7 +16,7 @@
 # include "cub3d.h"
 
 void	error(char *message, int p);
-void	free_array(void **arr, int size);
+void	free_array(void **arr);
 void	clean_map(t_map *map);
 void	clean_textures(t_game *game);
 

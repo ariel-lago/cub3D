@@ -27,18 +27,15 @@ void	error(char *message, int p)
 }
 
 /* frees any array of fixed size */
-void	free_array(void **arr, int size)
+void	free_array(void **arr)
 {
 	int	i;
 
 	if (!arr)
 		return ;
 	i = 0;
-	while (i < size)
-	{
-		free(arr[i]);
-		i++;
-	}
+	while (arr[i])
+			free(arr[i++]);
 	free(arr);
 }
 
@@ -72,12 +69,12 @@ void	clean_map(t_map *map)
 	}
 	if (map->map)
 	{
-		free_array((void **)map->map, map->map_height);
+		free_array((void **)map->map);
 		map->map = NULL;
 	}
 	if (map->map_copy)
 	{
-		free_array((void **)map->map_copy, map->map_height);
+		free_array((void **)map->map_copy);
 		map->map_copy = NULL;
 	}
 }
