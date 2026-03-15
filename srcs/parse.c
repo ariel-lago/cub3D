@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/12 21:07:42 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:29:48 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ static int	find_identifiers(int fd, t_map *map)
 	while (line && identifiers < 6)
 	{
 		if (ft_strncmp(line, "NO ", 3) == 0 && !map->walls[NORTH])
-			map->walls[0] = get_info(&line[3], &identifiers);
+			map->walls[NORTH] = get_info(&line[3], &identifiers);
 		else if (ft_strncmp(line, "SO ", 3) == 0 && !map->walls[SOUTH])
-			map->walls[1] = get_info(&line[3], &identifiers);
+			map->walls[SOUTH] = get_info(&line[3], &identifiers);
 		else if (ft_strncmp(line, "WE ", 3) == 0 && !map->walls[WEST])
-			map->walls[2] = get_info(&line[3], &identifiers);
+			map->walls[WEST] = get_info(&line[3], &identifiers);
 		else if (ft_strncmp(line, "EA ", 3) == 0 && !map->walls[EAST])
-			map->walls[3] = get_info(&line[3], &identifiers);
+			map->walls[EAST] = get_info(&line[3], &identifiers);
 		else if (ft_strncmp(line, "F ", 2) == 0 && !map->floor_color)
 			map->floor_color = parse_rgb(get_info(&line[2], &identifiers));
 		else if (ft_strncmp(line, "C ", 2) == 0 && !map->ceiling_color)
@@ -114,8 +114,8 @@ static int	find_identifiers(int fd, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (identifiers != 6)
-		return (free(line), error("Missing information", 0), FAILURE);
+	if (!valid_identifiers(map, identifiers))
+		return (free(line), FAILURE);
 	return (free(line), SUCCESS);
 }
 

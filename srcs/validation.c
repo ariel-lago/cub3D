@@ -3,24 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 18:40:13 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/12 21:17:22 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:29:21 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_valid_file(char	*map_name)
+int	is_valid_file(char	*file_name, char *type, char *extension)
 {
 	int	len;
+	int	fd;
 
-	if (!map_name)
-		return (error("Missing map name", 0), FALSE);
-	len = ft_strlen(map_name);
-	if (len < 4 || ft_strncmp(map_name + len - 4, ".cub", 4) != 0)
-		return (error("Map needs .cub extension", 0), FALSE);
+	if (!file_name || file_name[0] == '\0')
+		return (ft_putstr_fd(type, 2), error("Missing file name", 0), FALSE);
+	len = ft_strlen(file_name);
+	if (len < 4 || ft_strncmp(file_name + len - 4, extension, 4) != 0)
+		return (ft_putstr_fd(type, 2), error("Missing file extension", 0), FALSE);
+	fd = open(file_name, O_RDONLY);
+	if (fd == -1)
+		return(ft_putstr_fd(type, 2), error("Cannot open file", 0),FALSE);
+	close (fd);
+	return (TRUE);
+}
+
+int	valid_identifiers(t_map *map, int identifiers)
+{
+	int	i;
+
+	if (identifiers != 6)
+		return (error("Missing texture or color", 0), FALSE);
+	i = 0;	
+	while (i < 4)
+	{
+		if (!is_valid_file(map->walls[i], "Texture: ", ".xpm"))
+			return (FALSE);
+		i++;
+	}
+	if (map->ceiling_color == -1 || map->floor_color == -1)
+		return (error("Invalid floor/ceiling color", 0), FALSE);
 	return (TRUE);
 }
 
