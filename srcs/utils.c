@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:43:23 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/12 21:16:38 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:49:58 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@ void	free_array(void **arr)
 	while (arr[i])
 			free(arr[i++]);
 	free(arr);
+}
+
+/* makes the gnl reach EOF so that 
+	no memory is left in the static linked list. 
+	(Valgrind -> still reachable)
+*/
+void flush_gnl(int fd)
+{
+	char *line;
+	
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
 }
 
 void	clean_textures(t_game *game)
