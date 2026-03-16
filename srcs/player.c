@@ -43,6 +43,8 @@ static void	init_player_dir(t_game *game)
    - sets player in the middle of tile (+0.5)
    - set direction based on map data
    - sets standart FOV (66°) and speeds
+   	game->player.move_speed = 0.035; // -> how many units (fields) per frame
+	game->player.rot_speed = 0.01;   // -> how many radians per frame (ca 0.5°)
 */
 void	init_player(t_game *game)
 {
@@ -50,8 +52,8 @@ void	init_player(t_game *game)
 	game->player.pos.y = game->map.player_y + 0.5;
 	init_player_dir(game);
 	game->player.fov = 66.0;
-	game->player.move_speed = 0.035; // -> how many units (fields) per frame
-	game->player.rot_speed = 0.01;   // -> how many radians per frame (ca 0.5°)
+	game->player.move_speed = 0.035;
+	game->player.rot_speed = 0.01;
 	set_player_plane(game, game->player.fov);
 	print_start_stats(game);
 }

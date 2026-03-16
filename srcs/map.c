@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:07:08 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/16 16:40:12 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/16 17:54:19 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Checks that all characters in the map line are the allowed ones (01 NSEW)
 static int	is_map(char *line)
 {
 	int	i;
-	int is_not_only_space;
+	int	is_not_only_space;
 
 	is_not_only_space = 0;
 	i = 0;
@@ -68,6 +68,17 @@ int	get_map_size(int fd, int *height, int *width)
 	return (SUCCESS);
 }
 
+static int	mem_map(t_map *map)
+{
+	map->map = ft_calloc(map->map_height + 1, sizeof(char *));
+	if (!map->map)
+		return (error("Memory allocation failed", 1), FAILURE);
+	map->map_copy = ft_calloc(map->map_height + 1, sizeof(char *));
+	if (!map->map_copy)
+		return (free(map->map), error("Memory allocation failed", 1), FAILURE);
+	return (SUCCESS);
+}
+
 /*
 It allocates space for the map string array of the number of lines in the map. 
 It then reads the .cub file and copies each line into a string in the array.
@@ -82,13 +93,8 @@ int	load_map(char *map_name, t_map *map)
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		return (error("Open() failed", 1), FAILURE);
-	map->map = ft_calloc(map->map_height + 1, sizeof(char *));
-	if (!map->map)
-		return (close(fd), error("Memory allocation failed", 1), FAILURE);
-	map->map_copy = ft_calloc(map->map_height + 1, sizeof(char *));
-	if (!map->map_copy)
-		return (close(fd), free(map->map), 
-			error("Memory allocation failed", 1), FAILURE);
+	if (mem_map(map) == FAILURE)
+		return (close(fd), FAILURE);
 	line = get_next_line(fd);
 	while (line && !is_map(line))
 	{
@@ -103,7 +109,5 @@ int	load_map(char *map_name, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (line)
-		free (line);
-	return (close(fd), SUCCESS);
+	return (free(line), close(fd), SUCCESS);
 }

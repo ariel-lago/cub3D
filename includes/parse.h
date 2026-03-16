@@ -6,7 +6,7 @@
 /*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:32:23 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/11 18:28:20 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:28:39 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		parse(t_map	*map, char *map_name);
 
 //parse_utils.c
 int		get_player_start(t_map *map);
+int		parse_rgb(char *rgb_str);
 
 //2d render
 void	render_2d_map(t_game *game);

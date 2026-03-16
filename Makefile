@@ -33,6 +33,7 @@ SRC_FILES = main.c \
 	window.c \
 	hooks.c \
 	parse.c \
+	parse_utils.c \
 	utils.c \
 	map.c \
 	render.c \
