@@ -1,15 +1,13 @@
-       
-
 NO ./textures/wall/oklou.xpm
 EA ./textures/wall/east.xpm
 SO ./textures/wall/dannyoklou.xpm
 WE ./textures/wall/west.xpm
-
+   
 F 100,230,100
 C 165,190,240
 
-11111111111111  
-1100010000001 1
-1100000000W011 1
+11111111111111
+11000100000011
+1100000000W011
 10110000010001
 11111111111111

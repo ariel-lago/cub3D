@@ -94,6 +94,7 @@ static int	find_identifiers(int fd, t_map *map)
 {
 	char	*line;
 	int		identifiers;
+	int		i;
 
 	identifiers = 0;
 	line = get_next_line(fd);
@@ -111,6 +112,14 @@ static int	find_identifiers(int fd, t_map *map)
 			map->floor_color = parse_rgb(get_info(&line[2], &identifiers));
 		else if (ft_strncmp(line, "C ", 2) == 0 && !map->ceiling_color)
 			map->ceiling_color = parse_rgb(get_info(&line[2], &identifiers));
+		else
+		{
+			i = 0;
+			while (line[i] == ' ')
+				i++;
+			if((line[i] != '\0' && line[i] != '\n') && identifiers < 6)
+				return(free(line), error("Wrong identifier", 0), FAILURE);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
