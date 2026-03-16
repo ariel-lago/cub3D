@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:07:08 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/16 17:54:19 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/16 19:46:09 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,14 @@ int	load_map(char *map_name, t_map *map)
 		line = get_next_line(fd);
 	}
 	return (free(line), close(fd), SUCCESS);
+}
+
+int	is_valid_map(t_map *map)
+{
+	if (has_one_player(map) == FALSE)
+		return (error("Map needs one player", 0), FALSE);
+	if (is_surrounded(map) == FALSE)
+		return (error("Map isn't surrounded by walls", 0), FALSE);
+	else
+		return (TRUE);
 }

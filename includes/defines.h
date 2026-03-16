@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/11 18:25:28 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/16 19:54:52 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 # define HORIZONTAL 1
 
 # define PI 3.14159265358979323846
-# define DEG_TO_RAD(deg) ((deg) * PI / 180.0)
 
 /*
 # define EVENT_MOUSE_PRESS 4

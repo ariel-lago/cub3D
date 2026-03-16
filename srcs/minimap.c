@@ -91,6 +91,7 @@ static void	draw_line(t_game *game, t_vector center, double angle)
 /*  Draws the player's direction and FOV borders on minimap.
 	Converts player's grid position to pixel coordinates,
 	then draws lines at 0, left and right half_fov angles.
+	DEG_TO_RAD: ((deg) * PI / 180.0)
 */
 static void	draw_dir_2d(t_game *game)
 {
@@ -99,7 +100,7 @@ static void	draw_dir_2d(t_game *game)
 
 	center.x = (int)game->player.pos.x * SIZE + SIZE / 2;
 	center.y = (int)game->player.pos.y * SIZE + SIZE / 2;
-	half_fov = DEG_TO_RAD(game->player.fov) / 2.0;
+	half_fov = (game->player.fov * PI / 180) / 2.0;
 	draw_line(game, center, 0);
 	draw_line(game, center, half_fov);
 	draw_line(game, center, -half_fov);

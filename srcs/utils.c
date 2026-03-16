@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:43:23 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/16 16:49:58 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:59:19 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_array(void **arr)
 		return ;
 	i = 0;
 	while (arr[i])
-			free(arr[i++]);
+		free(arr[i++]);
 	free(arr);
 }
 
@@ -43,10 +43,10 @@ void	free_array(void **arr)
 	no memory is left in the static linked list. 
 	(Valgrind -> still reachable)
 */
-void flush_gnl(int fd)
+void	flush_gnl(int fd)
 {
-	char *line;
-	
+	char	*line;
+
 	line = get_next_line(fd);
 	while (line)
 	{

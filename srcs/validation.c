@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 18:40:13 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/15 18:29:21 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/16 19:45:26 by alago-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ int	is_valid_file(char	*file_name, char *type, char *extension)
 		return (ft_putstr_fd(type, 2), error("Missing file name", 0), FALSE);
 	len = ft_strlen(file_name);
 	if (len < 4 || ft_strncmp(file_name + len - 4, extension, 4) != 0)
-		return (ft_putstr_fd(type, 2), error("Missing file extension", 0), FALSE);
+		return (ft_putstr_fd(type, 2), \
+		error("Missing file extension", 0), FALSE);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		return(ft_putstr_fd(type, 2), error("Cannot open file", 0),FALSE);
+		return (ft_putstr_fd(type, 2), error("Cannot open file", 0), FALSE);
 	close (fd);
 	return (TRUE);
 }
@@ -35,7 +36,7 @@ int	valid_identifiers(t_map *map, int identifiers)
 
 	if (identifiers != 6)
 		return (error("Missing texture or color", 0), FALSE);
-	i = 0;	
+	i = 0;
 	while (i < 4)
 	{
 		if (!is_valid_file(map->walls[i], "Texture: ", ".xpm"))
@@ -47,7 +48,7 @@ int	valid_identifiers(t_map *map, int identifiers)
 	return (TRUE);
 }
 
-static int	has_one_player(t_map *map)
+int	has_one_player(t_map *map)
 {
 	int	x;
 	int	y;
@@ -96,7 +97,7 @@ static int	flood_fill(char	**map, int y, int x, int height)
 	return (SUCCESS);
 }
 
-static int	is_surrounded(t_map *map)
+int	is_surrounded(t_map *map)
 {
 	int	x;
 	int	y;
@@ -119,14 +120,4 @@ static int	is_surrounded(t_map *map)
 		y++;
 	}
 	return (TRUE);
-}
-
-int	is_valid_map(t_map *map)
-{
-	if (has_one_player(map) == FALSE)
-		return (error("Map needs one player", 0), FALSE);
-	if (is_surrounded(map) == FALSE)
-		return (error("Map isn't surrounded by walls", 0), FALSE);
-	else
-		return (TRUE);
 }
