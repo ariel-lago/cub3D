@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/15 18:29:48 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:12:06 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,12 @@ int	parse(t_map *map, char *map_name)
 		return (error("Open() failed", 1), FAILURE);
 	ft_memset(map, 0, sizeof (t_map));
 	if (find_identifiers(fd, map) == FAILURE)
-		return (close(fd), FAILURE);
+		return (clean_map(map), close(fd), FAILURE);
 	if (get_map_size(fd, &map->map_height, &map->map_width) == FAILURE)
-		return (close(fd), FAILURE);
+		return (clean_map(map), close(fd), FAILURE);
 	close(fd);
 	if (load_map(map_name, map) == FAILURE)
-		return (FAILURE);
+		return (clean_map(map), FAILURE);
 	if (is_valid_map(map) == FALSE)
 		return (clean_map(map), FAILURE);
 	if (get_player_start(map) == FAILURE)
