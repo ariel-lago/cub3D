@@ -18,15 +18,19 @@ Checks that all characters in the map line are the allowed ones (01 NSEW)
 static int	is_map(char *line)
 {
 	int	i;
+	int is_not_only_space;
 
+	is_not_only_space = 0;
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
 		if (!ft_strchr("01 NSEW", line[i]))
 			return (FALSE);
+		if (ft_strchr("01NSEW", line[i]))
+			is_not_only_space = 1;
 		i++;
 	}
-	return (i > 0);
+	return (i > 0 && is_not_only_space);
 }
 
 /*
