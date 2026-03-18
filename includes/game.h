@@ -36,11 +36,6 @@ int			load_texture(t_game *game, t_img *texture, char *filepath);
 int			scale_texture(t_game *game, t_ray *ray, int y);
 int			rgb_to_int(t_rgb color);
 
-// print stat messages -> debug.c
-void		print_start_stats(t_game *game);
-void		print_end_stats(t_game *game);
-void		debug_textures(t_game *game, int i);
-
 int			game_loop(t_game *game);
 t_vector	rotate_vector(t_vector vector, double angle);
 void		cast_rays(t_game *game);

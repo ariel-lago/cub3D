@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:00:37 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/16 18:53:43 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:42:17 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,5 @@ int	parse(t_map *map, char *map_name)
 		return (clean_map(map), FAILURE);
 	if (get_player_start(map) == FAILURE)
 		return (clean_map(map), error("Player not found", 0), FAILURE);
-	printf("player pos_x: %d\n", map->player_x);
-	printf("player pos_y:%d\n", map->player_y);
-	printf("player start direction: %c\n", map->player_dir);
 	return (SUCCESS);
 }

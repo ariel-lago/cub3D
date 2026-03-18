@@ -43,8 +43,7 @@ SRC_FILES = main.c \
 	textures.c \
 	minimap.c \
 	raycast.c \
-	validation.c \
-	debug.c
+	validation.c
 	
 SRCS	= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

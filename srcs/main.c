@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:22:57 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/15 15:54:39 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:41:21 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	init_game(t_game *game)
 	{
 		if (load_texture(game, &game->wall[i], game->map.walls[i]) == FAILURE)
 			return (error("Couldn't load wall texture", 0), FAILURE);
-		debug_textures(game, i);
 		i++;
 	}
+	game->mm_size = 8;
+	game->m_pressed = false;
 	return (SUCCESS);
 }
 

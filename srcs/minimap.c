@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 11:54:36 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/18 14:35:38 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:10:59 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static void	draw_map_tile(t_game *game, int row, int col, int color)
 	int	screen_x;
 
 	y = 0;
-	while (y < SIZE)
+	while (y < game->mm_size)
 	{
 		x = 0;
-		while (x < SIZE && color != EMPTY)
+		while (x < game->mm_size && color != EMPTY)
 		{
-			screen_x = col * SIZE + x;
-			screen_y = row * SIZE + y;
+			screen_x = col * game->mm_size + x;
+			screen_y = row * game->mm_size + y;
 			put_pixel(&game->canvas, screen_x, screen_y, color);
 			x++;
 		}
@@ -78,7 +78,7 @@ static void	draw_line(t_game *game, t_vector center, double angle)
 	ahead.y = (int)(game->player.pos.y + game->player.dir.y);
 	edge = rotate_vector(game->player.dir, angle);
 	i = 1;
-	while (i++ <= SIZE)
+	while (i++ <= game->mm_size)
 	{
 		dot.x = center.x + (int)(edge.x * i);
 		dot.y = center.y + (int)(edge.y * i);
@@ -98,8 +98,8 @@ static void	draw_dir_2d(t_game *game)
 	t_vector	center;
 	double		half_fov;
 
-	center.x = (int)game->player.pos.x * SIZE + SIZE / 2;
-	center.y = (int)game->player.pos.y * SIZE + SIZE / 2;
+	center.x = (int)game->player.pos.x * game->mm_size + game->mm_size / 2;
+	center.y = (int)game->player.pos.y * game->mm_size + game->mm_size / 2;
 	half_fov = (game->player.fov * PI / 180) / 2.0;
 	draw_line(game, center, 0);
 	draw_line(game, center, half_fov);
