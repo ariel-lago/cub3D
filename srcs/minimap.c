@@ -13,7 +13,6 @@
 #include "cub3d.h"
 
 // 2D Map values
-#define SIZE 	8
 #define WALL	0x9999FF
 #define FLOOR	0xFF99FF
 #define PLAYER	0xFF6666
@@ -45,21 +44,6 @@ static void	draw_map_tile(t_game *game, int row, int col, int color)
 		y++;
 	}
 }
-
-/*  Checks if the grid cell directly in front of player
-	is within map boundaries, prevents out-of-bound rendering.
-
-static int	within_bounds(t_game *game)
-{
-	t_vector	ahead;
-
-	ahead.x = (int)(game->player.pos.x + game->player.dir.x);
-	ahead.y = (int)(game->player.pos.y + game->player.dir.y);
-	if (ahead.x >= 0 && ahead.x < game->map.map_width && \
-		ahead.y >= 0 && ahead.y < game->map.map_height)
-		return (true);
-	return (false);
-}*/
 
 /*  Draws a line of dots in a given direction from center point.
 	Gets the players direction vector from rotate function
