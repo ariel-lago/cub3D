@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:53:16 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/16 19:51:04 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:23:13 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	update_pos(t_player *player, t_vector new, t_map *map)
 {
 	if (new.x < 0 || new.x >= map->map_width || \
 		new.y < 0 || new.y >= map->map_height || \
-	map->map[(int)new.y][(int)new.x] == '1' )
+	map->map[(int)new.y][(int)new.x] != '0')
 		return ;
 	player->pos.x = new.x;
 	player->pos.y = new.y;
