@@ -3,7 +3,7 @@ NAME = cub3D
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft -I./minilibx-linux -g
+CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft -I./minilibx-linux
 
 # Directories
 SRC_DIR = srcs
