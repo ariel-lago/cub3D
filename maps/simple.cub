@@ -1,6 +1,6 @@
-NO ./textures/wall/oklou.xpm
+NO ./textures/wall/north.xpm
 EA ./textures/wall/east.xpm
-SO ./textures/wall/dannyoklou.xpm
+SO ./textures/wall/south.xpm
 WE ./textures/wall/west.xpm
    
 F 100,230,100

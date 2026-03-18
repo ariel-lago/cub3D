@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:53:16 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/16 19:50:30 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 13:03:17 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int	move_player(t_game *game)
 		rotate_player(&game->player, -game->player.rot_speed);
 	if (game->keys.right)
 		rotate_player(&game->player, game->player.rot_speed);
-	if (game->keys.down && game->player.fov > 30.00)
+	if (game->keys.down && game->player.fov > 45.00)
 		set_player_plane(game, game->player.fov - 1.00);
-	if (game->keys.up && game->player.fov < 120.00)
+	if (game->keys.up && game->player.fov < 90.00)
 		set_player_plane(game, game->player.fov + 1.00);
 	return (SUCCESS);
 }
