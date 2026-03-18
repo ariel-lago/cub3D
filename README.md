@@ -59,14 +59,78 @@ Here's an example of a valid map:
 11110111 1110101 101111010001
 11111111 1111111 111111111111
 
+### (4) Gameplay & Controls Instructions
+
+#### Player View
+
+The first-person perspective is achieved through a custom raycasting engine. For each vertical stripe on the screen, a ray is cast from the player's position in the direction of that stripe. The distance to the nearest wall determines how tall that wall slice should be drawn.
+
+#### Movement System
+
+    Press WASD keys to move in each direction, where
+	
+	W = forwards
+	A = left
+	S = backwards
+	D = right
+	
+    in relation to the player's view direction.
+
+#### FOV (field of view)
+
+    The players field of view can me adjusted between
+
+	45 degrees for narrow view and
+	90 degrees for a wide view.
+	
+	Press 'up' arrow to narrow view, 'down' to widen. 
+	
+#### Minimap
+
+    Press M to minimize/maximize a top-down minimap that shows:
+
+	Walls (blue)
+	Floor areas (pink)
+	Player position (red dot)
+	Player direction and FOV (green lines)
+    
+
+### Features
+
+    Smooth movement: No grid-snapping, allowing free movement within walkable areas
+
+    Real-time rotation: Fluid camera turning with arrow keys
+
+    Collision detection: Prevents walking through walls while allowing movement along them
+
+	
 ## Resources
+
+### Key concepts that were essential for building the game:
+
+    Vector mathematics - For player positioning, direction, and the camera plane
+
+    Trigonometry - For smooth player rotation using sine and cosine
+
+    DDA (Digital Differential Analyzer) - For efficient grid traversal when casting rays
+
+    Raycasting - The core technique that projects 2D map data into a 3D perspective
+
+### Tutorials & other Resources
+
 A big help for this project has been Lode's Computer Graphics Tutorial on Raycasting: https://lodev.org/cgtutor/raycasting.html
+
 Particularly, the idea of the DDA algorithm and the explanations on how to avoid fish eye distortion. 
-Another relevant resource were certain videos and youtube courses on Vectors, trigonometry, maths for game development, Raycasting and Digital Differential Analyzer. For this, channels like javidx9 or Freya Holmer were particularly useful.
+Another relevant resource were youtube courses on Vectors, trigonometry, maths for game development, Raycasting and Digital Differential Analyzer. For this, channels like javidx9 or Freya Holmer were particularly useful.
+Freya Holmer: https://www.youtube.com/@acegikmo
+javidx9: https://www.youtube.com/watch?v=DPfxjQ6sqrc
 
 ## AI usage
-Claude AI, Gemini and Deepseek were used in this project. Mostly for conceptual understanding and debugging.
+Claude AI, Gemini and Deepseek were used in this project for conceptual tutoring and explanations of mathematical examples. Furthermore, it was used in debugging, giving clarification on crashes etc.
 Some concrete examples of this could be:
+
  - Asking ai to explain the Raycasting guide in the resources in a way that was easier to understand for game dev. beginners.
- - Understanding certain Valgrind errors and finding their root. 
+- Understanding certain Valgrind errors and finding their root. 
 - Ideas on different ways to treat spaces in map validation. 
+
+All AI-generated imput was fully understood and reviewed before implementation.
