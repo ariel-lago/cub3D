@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:53:16 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/18 13:03:17 by rbestman         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:21:19 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ int	move_player(t_game *game)
 		set_player_plane(game, game->player.fov - 1.00);
 	if (game->keys.up && game->player.fov < 90.00)
 		set_player_plane(game, game->player.fov + 1.00);
+	if (game->keys.pressed[KEY_M] && game->m_pressed)
+		toggle_minimap(game);
 	return (SUCCESS);
 }

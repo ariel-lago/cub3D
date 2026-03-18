@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alago-ga <alago-ga@student.42berlin.d>     +#+  +:+       +#+        */
+/*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:32:23 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/16 18:28:39 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:31:18 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		parse_rgb(char *rgb_str);
 
 //2d render
 void	render_2d_map(t_game *game);
+void	toggle_minimap(t_game *game);
 int		load_map(char *map_name, t_map *map);
 int		get_map_size(int fd, int *height, int *width);
 

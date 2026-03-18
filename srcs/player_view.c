@@ -6,11 +6,20 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 15:29:01 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/12 21:24:25 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:29:59 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	toggle_minimap(t_game *game)
+{
+	if (game->mm_size == 8)
+		game->mm_size = 4;
+	else
+		game->mm_size = 8;
+	game->m_pressed = false;
+}
 
 /* trigomitry reminder:
     1. Sides of a triangle:

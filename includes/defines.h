@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:04:29 by alago-ga          #+#    #+#             */
-/*   Updated: 2026/03/16 19:54:52 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:15:56 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_M 109
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_UP 65362
@@ -149,6 +150,8 @@ typedef struct s_game
 	t_img		wall[4];
 	t_player	player;
 	t_ray		ray;
+	int			mm_size;
+	bool		m_pressed;
 }	t_game;
 
 #endif

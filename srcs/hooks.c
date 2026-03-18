@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 17:50:25 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/11 18:48:31 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:21:36 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	key_hook(int keycode, t_game *game)
 		game->keys.down = true;
 	if (keycode >= 0 && keycode < 256)
 		game->keys.pressed[keycode] = true;
+	if (keycode == KEY_M)
+		game->m_pressed = true;
 	return (0);
 }
 
