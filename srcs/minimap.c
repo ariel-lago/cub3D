@@ -6,7 +6,7 @@
 /*   By: rbestman <rbestman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 11:54:36 by rbestman          #+#    #+#             */
-/*   Updated: 2026/03/16 18:23:33 by alago-ga         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:35:38 by rbestman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	draw_line(t_game *game, t_vector center, double angle)
 	ahead.y = (int)(game->player.pos.y + game->player.dir.y);
 	edge = rotate_vector(game->player.dir, angle);
 	i = 1;
-	while (i++ <= 10)
+	while (i++ <= SIZE)
 	{
 		dot.x = center.x + (int)(edge.x * i);
 		dot.y = center.y + (int)(edge.y * i);
