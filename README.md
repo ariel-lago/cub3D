@@ -15,8 +15,10 @@
 # CUB3D
 
 ## Description
-This project is written in C,
-
+This project is written in C. The program will render a 2d map and, through a technique called raycasting, render a dynamic 3d version of it. 
+The idea was to do something similar to the classic game Wolfenstein 3D where the user can navigate a map and move around different rooms and areas. 
+While raycasting isn't as popular now, it was used when computers were slower, since it requires very few calculations for rendering the 3D map.
+The program accepts different textures for the walls and colors for the floor and ceiling. So we've added various maps with different scenes.
 
 ## Instructions
 Clone the repository, and open it on your terminal.
@@ -25,7 +27,7 @@ Type *make* to compile.
 Now you can run the program by writing *./cub3D* followed by the path to a valid *.cub* map containing:
 
 ### (1) Path to the textures for each wall
-They can be in any order, but the textures must be .xpm files and they must be formated as: 
+They can be in any order, but the textures must be .xpm files and they must be formatted as: 
 NO ./path_to_the_north_texture.xpm
 SO ./path_to_the_south_texture.xpm
 WE ./path_to_the_west_texture.xpm
